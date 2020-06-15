@@ -1,0 +1,87 @@
+<html>
+<head>
+<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+</head>
+
+<body>
+<script type="text/javascript"> 
+$(document).ready(function(){ 
+      $('#a1').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"1","operate_code":"get","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+        
+      $('#a2').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"2","operate_code":"get","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+        
+      $('#a3').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"3","operate_code":"get","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})   
+        })
+
+      $('#a4').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"1","operate_code":"status","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+
+      $('#a5').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"2","operate_code":"status","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+
+      $('#a6').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"3","operate_code":"status","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+
+      $('#a7').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"1","operate_code":"reset","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+        
+      $('#a8').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"2","operate_code":"reset","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+
+      $('#a9').click(function(){  
+          var jsondata={"sandtable_id":"001","sandtable_node_id":"3","operate_code":"reset","operate_data":"null"}
+            $.get("./cgi-bin/cgi_control",jsondata,function(a){alert(a)})  
+        })
+
+      $('#a10').click(function(){  
+          var jsondata={"module":"sys_info","command":"get"}
+            $.get("./cgi-bin/setup",jsondata,function(a){alert(a)})  
+        })
+		
+      $('#a11').click(function(){  
+          var jsondata={"module":"net_config","command":"get"}
+            $.get("./cgi-bin/setup",jsondata,function(a){alert(a)})  
+        })	
+      $('#a12').click(function(){  
+          var jsondata={"module":"monitor_config","command":"get"}
+            $.get("./cgi-bin/setup",jsondata,function(a){alert(a)})  
+        })			
+
+})
+</script>
+<b>(1)设备操作</b><br>
+<a id="a1" href="javascript:;">获取温湿度</a><br>		<!--br一般写在外面-->
+<a id="a2" href="javascript:;">获取风速</a><br>
+<a id="a3" href="javascript:;">获取风向</a><br>
+<a id="a4" href="javascript:;">设备检测-温湿度仪</a><br>
+<a id="a5" href="javascript:;">设备检测-风速仪</a><br>
+<a id="a6" href="javascript:;">设备检测-风向仪</a><br>
+<a id="a7" href="javascript:;">复位沙盘--温湿度仪</a><br>
+<a id="a8" href="javascript:;">复位沙盘--风速仪</a><br>
+<a id="a9" href="javascript:;">复位沙盘--风向仪</a><br>
+<p>
+<b>(2)系统配置</b><br>
+<a id="a10" href="javascript:;">获取系统信息</a><br>
+<a id="a11" href="javascript:;">获取网络配置</a><br>
+<a id="a12" href="javascript:;">获取监控配置</a><br>
+
+</body>
+</html>

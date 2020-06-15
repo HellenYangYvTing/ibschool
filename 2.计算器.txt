@@ -1,0 +1,46 @@
+1. gedit cal.c
+****
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(int argc, char **args)
+{
+	if(argc <4)
+	{
+		printf("wrong!the correct usage is");
+		return 0;
+	}
+	int a = atoi(args[1]);
+	int b = atoi(args[3]);
+	char c = args[2][0];
+	switch(c){
+	case '+':{
+		printf("%d\n",a+b);
+		break;
+		}
+	case '-':{
+		printf("%d\n",a-b);
+		break;
+		}
+	case '*':{
+		printf("%d\n",a*b);
+		break;
+		}
+	case '/':{
+		printf("%d\n",a/b);
+		break;
+		}
+	default:{
+		printf("error");
+		break;
+		}
+	}
+	return 0;
+}
+***********************
+2 gcc cal.c -o cal-86
+3  ./cal-86 3 + 9
+4 arm-linux-gcc cal.c -o cal-arm（source /etc/profile）
+ls
+

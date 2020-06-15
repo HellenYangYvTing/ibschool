@@ -1,0 +1,712 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>系统设置</title> 
+		<link rel="stylesheet" type="text/css" href="style/module.css"/>
+        
+        <style type="text/css">
+
+			.setup {
+				float: left;
+				width: 255px;
+				height: 200px;
+				margin: 15px auto auto 16px;
+			}
+			.setup_title{
+	margin: 5px 10px 5px 10px;
+	font-size: 24px;
+	alignment-baseline: middle;
+			}
+			.setup_img{
+	width: 186px;
+	height: 62px;
+	margin: 10px 10px 10px 10px;
+	background-color: #FFF;
+	position: absolute;
+	left: 434px;
+	top: 530px;
+			}
+			.setup_img img{
+				width:100%;
+				height:100%;
+			}
+			.get_sys_button_div{
+	position: absolute;
+	left: 310px;
+	top: 7px;
+	width: 93px;
+	height: 151px;
+			}
+			.img_style_button_div{
+	position: absolute;
+	left: 627px;
+	top: 480px;
+	width: 93px;
+	height: 110px;
+			}
+			.monitor_set_button_div{
+	position: absolute;
+	left: 387px;
+	top: 24px;
+	width: 93px;
+	height: 172px;
+			}				
+			
+			.operation_button{
+	background: url("images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	color: #FFFFFF;
+	height: 50px;
+	width: 90px;
+	text-align: center;
+	vertical-align: middle;
+	position: absolute;
+	top: 45px;
+	left: 325px;
+			}
+			
+			.setup_button{
+	background: url("images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	color: #FFFFFF;
+	height: 47px;
+	width: 90px;
+	text-align: center;
+	vertical-align: top;
+	left: 925px;
+	top: 168px;
+	margin-bottom: 10px;
+			}			
+			.setup_buttons_div{
+	position: absolute;
+	left: 315px;
+	top: 5px;
+	width: 93px;
+	height: 150px;
+			}
+			.setup_status_div{
+				margin-top: 15px;
+			}
+			.setup_status_unit{
+				margin-top: 10px;
+			}
+			.setup_status{
+	position: absolute;
+	height: 20px;
+	width: 200px;
+	overflow: hidden;
+	alignment-adjust: auto;
+	left: 86px;
+	font-size: 16px;
+	font-weight: bold;
+			}
+			.setup_status_div label{
+				font-size:14px;
+				vertical-align:top;
+			}
+			.setup_status_div textarea{
+				position:absolute;
+				vertical-align:top;
+			}
+		   
+			#config{
+				overflow: auto;
+				margin-bottom: 10px;
+				width: 640px;
+				height: 165px;
+			}
+			.interface_set{
+	float: left;
+	width: 110px;
+	height: 178px;
+	margin-left: 20px;
+	font-size: 16px;
+	position: absolute;
+	left: 295px;
+	top: 410px;
+	text-align: left;
+	font-weight: normal;
+			}
+			
+			.monitor_set_text{
+	position: absolute;
+	height: 20px;
+	width: 280px;
+	overflow: hidden;
+	alignment-adjust: auto;
+	left: 86px;
+	font-size: 16px;
+	font-weight: bold;
+			}			
+	         
+        </style>        
+
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript" src="js/cookie.js"></script>     
+		<script type="text/javascript" language="javascript">
+					
+			function checkLogin()
+			{
+				if(CookieUtil.get("username") == "admin" && CookieUtil.get("passwd") != "null")
+					return true;
+				else
+					return false;
+			}
+			$(function()
+			{
+				jQuery.ajaxSetup({cache:false});
+				if(!(checkLogin()))
+				{
+					alert("非法操作！您没有管理权限！");
+					window.location.href = "index.html";
+				}
+			});	
+///////////////////////////////////////////////////////////////////////////////////////////////////
+			/* define factory default parameter.*/		
+			var default_machine_name = "UL-CAMPUS-SIMULATION";
+			var default_product_id = "ULWCS";
+			var default_hardware_id = "Zynq-PicoZed-2015";
+			var default_software_id = "ULWCS-LX-A-1.0";
+			var default_serial_num = "800308140300952";
+			/////////////////////////////////////////////////////////			
+			var default_ip_address = "192.168.0.252";
+			var default_mask_address = "255.255.255.0";
+			var default_gateway_address = "192.168.0.1";
+			var default_dns_address = "210.22.84.3";
+			var default_mac_address = "00:0A:35:00:01:21";
+			/////////////////////////////////////////////////////////
+			var default_video_1 = "rtsp://192.168.0.240:554//H264";
+			var default_video_2 = "rtsp://192.168.0.241:554//H264";
+			var default_video_3 = "rtsp://192.168.0.242:554//H264";
+			var default_video_4 = "rtsp://192.168.0.243:554//H264";
+			var default_video_5 = "rtsp://192.168.0.244:554//H264";
+			var default_video_6 = "rtsp://192.168.0.245:554//H264";
+///////////////////////////////////////////////////////////////////////////////////////////////////
+			
+			$(function()
+			{ 
+				$("#clear_sys_info").bind("click", function () 
+				{ 									
+
+					$("#machine_name").val("");
+					$("#product_id").val("");
+					$("#hardware_id").val("");
+					$("#software_id").val("");
+					$("#serial_num").val("");	
+				})
+							
+				$("#get_sys_info").bind("click", function () 
+				{ 									
+					$.getJSON("./cgi-bin/setup",{"module":"sys_info","command":"get"},
+						function(rdata)
+						{
+							if(rdata.result == "success")
+							{
+								$("#machine_name").val(rdata.machine_name);
+								$("#product_id").val(rdata.product_id);
+								$("#hardware_id").val(rdata.hardware_id);
+								$("#software_id").val(rdata.software_id);
+								$("#serial_num").val(rdata.serial_num);	
+							}
+							else
+							{
+								alert("获取系统信息失败！");
+							}
+						});
+				})
+				
+				$("#set_sys_info").bind("click", function () 
+				{
+					if(($("#machine_name").val()=="")
+						||($("#product_id").val()=="")
+						||($("#hardware_id").val()=="")
+						||($("#software_id").val()=="")
+						||($("#serial_num").val()==""))
+					{
+						alert("输入信息为空，请填写完整！");
+					}
+					else
+					{				 									
+						$.getJSON("./cgi-bin/setup",
+							{
+								"module":"sys_info",
+								"command":"set",
+								"machine_name":$("#machine_name").val(),
+								"product_id":$("#product_id").val(),
+								"hardware_id":$("#hardware_id").val(),
+								"software_id":$("#software_id").val(),
+								"serial_num":$("#serial_num").val()
+							 },
+							function(rdata)
+							{
+								if(rdata.result == "success")
+									alert("修改系统信息成功.");
+								else
+									alert("修改系统信息失败！");						
+							});
+					}
+				})				
+///////////////////////////////////////////////////////////////////////////////////
+				$("#set_dhcp_network").bind("click", function () 
+				{
+					//first clear net_config text
+					$("#ip_address").val("");
+					$("#mask_address").val("");
+					$("#gateway_address").val("");
+					$("#dns_address").val("");
+					$("#mac_address").val("");
+				
+					//alert("正在使用DHCP配置网络，稍后点击获取信息查看配置情况.");																	
+					$.getJSON("./cgi-bin/setup",{"module":"net_config","command":"dhcp"},
+						function(rdata)
+						{
+							if(rdata.result == "success")
+								alert("DHCP配置网络成功.");
+							else
+								alert("DHCP配置网络失败！");
+						});						
+				})
+				
+				$("#set_manual_network").bind("click", function () 
+				{		
+					if(($("#ip_address").val()=="")
+						||($("#mask_address").val()=="")
+						||($("#gateway_address").val()=="")
+						||($("#dns_address").val()=="")
+						||($("#mac_address").val()==""))
+					{
+						alert("输入信息为空，请填写完整！");
+					}
+					else
+					{				
+						//alert("正在使用手动配置网络，稍后点击获取信息查看配置情况.");										
+						$.getJSON("./cgi-bin/setup",
+							{
+								"module":"net_config",
+								"command":"manual",
+								"ip":$("#ip_address").val(),
+								"mask":$("#mask_address").val(),
+								"gateway":$("#gateway_address").val(),
+								"dns":$("#dns_address").val(),
+								"mac":$("#mac_address").val(),
+							 },
+							function(rdata)
+							{
+								if(rdata.result == "success")
+									alert("手动配置网络成功.");
+								else
+									alert("手动配置网络失败！");						
+							});
+					}
+				})				
+				
+				$("#get_network_config").bind("click", function () 
+				{ 									
+					$.getJSON("./cgi-bin/setup",{"module":"net_config","command":"get"},
+						function(rdata)
+						{
+							if(rdata.result == "success")
+							{	
+								$("#ip_address").val(rdata.ip);
+								$("#mask_address").val(rdata.mask);
+								$("#gateway_address").val(rdata.gateway);
+								$("#dns_address").val(rdata.dns);
+								$("#mac_address").val(rdata.mac);		
+							}
+							else
+							{
+								alert("获取网络配置失败！");							
+							}
+						});
+				})				
+///////////////////////////////////////////////////////////////////////////////////
+				/* when init page auto execute this function. */					
+				$.getJSON("./cgi-bin/setup",{"module":"style_config","command":"get"},
+					function(rdata)
+					{
+						//alert(rdata.page_style);
+						switch (rdata.page_style)
+						{
+							case('1'):
+								$("#sel_style_1").attr("checked","checked");
+								break;
+							case('2'):
+								$("#sel_style_2").attr("checked","checked");
+								break;
+							case('3'):
+								$("#sel_style_3").attr("checked","checked");
+								break;
+							default:
+								$("#sel_style_1").attr("checked","checked");
+						}												
+					});
+					
+				$("#set_style_config").bind("click", function () 
+				{									 									
+					$.getJSON("./cgi-bin/setup",
+						{
+							"module":"style_config",
+							"command":"set",
+							"page_style":$("input[name=sel_style]:checked").val()
+						 },
+						function(rdata)
+						{
+							if(rdata.result == "success")
+							{
+								alert("修改界面风格成功！请按Ctrl+F5刷新页面。");
+								window.location.reload(true);	//刷新当前页面
+								top.location.reload(true);		//刷新顶层页面
+							}
+							else
+							{
+								alert("修改界面风格失败！");						
+							}
+						});
+				})					
+
+///////////////////////////////////////////////////////////////////////////////////
+				$("#clear_monitor_info").bind("click", function () 
+				{
+					$("#video_1").val("");
+					$("#video_2").val("");
+					$("#video_3").val("");
+					$("#video_4").val("");
+					$("#video_5").val("");
+					$("#video_6").val("");
+				})
+				$("#get_monitor_config").bind("click", function () 
+				{ 									
+					$.getJSON("./cgi-bin/setup",{"module":"monitor_config","command":"get"},
+						function(rdata)
+						{
+							if(rdata.result == "success")
+							{							
+								$("#video_1").val(rdata.video_1);
+								$("#video_2").val(rdata.video_2);
+								$("#video_3").val(rdata.video_3);
+								$("#video_4").val(rdata.video_4);
+								$("#video_5").val(rdata.video_5);	
+								$("#video_6").val(rdata.video_6);	
+							}
+							else
+							{
+								alert("获取地址信息失败！");
+							}											
+						});
+				})
+				$("#set_monitor_config").bind("click", function () 
+				{
+					if(($("#video_1").val()=="")
+						||($("#video_2").val()=="")
+						||($("#video_3").val()=="")
+						||($("#video_4").val()=="")
+						||($("#video_5").val()=="")
+						||($("#video_6").val()==""))
+					{
+						alert("输入信息为空，请填写完整！");
+					}
+					else
+					{
+						$.getJSON("./cgi-bin/setup",
+							{
+								"module":"monitor_config",
+								"command":"set",
+								"video_1":$("#video_1").val(),
+								"video_2":$("#video_2").val(),
+								"video_3":$("#video_3").val(),
+								"video_4":$("#video_4").val(),
+								"video_5":$("#video_5").val(),
+								"video_6":$("#video_6").val()
+							 },
+							function(rdata)
+							{
+								if(rdata.result == "success")
+									alert("修改地址信息成功.");
+								else
+									alert("修改地址信息失败！");						
+							});
+					}						
+				})
+///////////////////////////////////////////////////////////////////////////////////
+
+				$("#sys_default_config").bind("click", function () 
+				{										
+					$("#machine_name").val(default_machine_name);
+					$("#product_id").val(default_product_id);
+					$("#hardware_id").val(default_hardware_id);
+					$("#software_id").val(default_software_id);
+					$("#serial_num").val(default_serial_num);
+
+					$("#ip_address").val(default_ip_address);
+					$("#mask_address").val(default_mask_address);
+					$("#gateway_address").val(default_gateway_address);
+					$("#dns_address").val(default_dns_address);
+					$("#mac_address").val(default_mac_address);
+
+					$("#sel_style_1").attr("checked","checked");
+
+					$("#video_1").val(default_video_1);
+					$("#video_2").val(default_video_2);
+					$("#video_3").val(default_video_3);
+					$("#video_4").val(default_video_4);
+					$("#video_5").val(default_video_5);
+					$("#video_6").val(default_video_6);
+					
+					alert("已加载工厂默认配置，请点击各模块的设置按钮！");
+				})
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//				$("#sys_reboot").bind("click", function () 
+//				{
+//					var ret = window.confirm("您将要系统重启，确定吗？");
+//					if(ret)
+//					{
+//						$.getJSON("./cgi-bin/setup",
+//							{
+//								"module":"system_operation",
+//								"command":"reboot"
+//							},
+//							function(rdata)
+//							{
+//								alert("系统重启中...请等待2分钟后重新登录！");
+//							});
+//					}
+//				})		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////										
+			})			
+	
+		</script>
+	</head>
+	<body>
+		<div class="body-bg">
+			<div class="coll-nav">
+				<div class="center">
+					<div class="nav-eat">
+						<div class = "main_menu">
+							<span>系统设置</span>
+						</div>
+                        <div class="logo_software"><img alt="" src="images/logo_software.png" width="263" height="50"/>
+                        </div>                          
+					</div>
+				</div>
+			</div>
+			<div class="coll-body">
+				<div class="coll-left">
+					<img src="images/left_image.png" width="207" height="510" />
+				</div>
+				<div class="coll-right">
+					<div class = "helpContent">
+<!--开始Setup页面-->
+                   	  <table width="950" height="512" border="1" cellpadding="1" cellspacing="1">
+                          <tr>
+                          	<th width="433" height="25" scope="col">
+                            	<div align="center" style="font-weight: normal">系统信息</div>
+                            </th>
+                            <td width="504" scope="col">
+                            	<div align="center" style="font-weight: normal">网络设置</div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th width="433" height="185" scope="col">
+                            <div class="setup" style="font-size: 16px; width: 300px; height: 160px; position: absolute; top: 144px; left: 300px; font-weight: normal;">
+                              <div align="left" class="setup_status_unit">
+								<label>本机名称：</label>
+                               	<textarea class="setup_status" id="machine_name" ></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>产品型号：</label>
+                               	<textarea class="setup_status" id="product_id"></textarea>
+							  </div>                              
+                              <div align="left" class="setup_status_unit">
+								<label>硬件版本：</label>
+                                <textarea class="setup_status" id="hardware_id"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>软件版本：</label>
+                                    <textarea class="setup_status" id="software_id"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>序列号：</label>
+                              	<textarea class="setup_status" id="serial_num"></textarea>
+							  </div>
+     							<div class="get_sys_button_div">
+                                 	<button class="setup_button" id="clear_sys_info">
+                               		<div align="center">清空文本</div>
+                                	</button>                                
+                                 	<button class="setup_button" id="get_sys_info">
+                               		<div align="center">获取信息</div>
+                                	</button>
+                                    <button class="setup_button" id="set_sys_info">
+                                    <div align="center">修改信息</div>
+                                    </button>
+                                </div>
+                              
+                            </div>
+                            </th>
+                        	<td width="504" scope="col">
+                            
+                            <div class="setup" style="font-size: 16px; width: 300px; height: 160px; position: absolute; top: 145px;">
+                              <div align="left" class="setup_status_unit">
+								<label>IP地址：</label>
+                                <textarea class="setup_status" id="ip_address"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>子网掩码：</label>
+                                <textarea class="setup_status" id="mask_address"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>默认网关：</label>
+                                <textarea class="setup_status" id="gateway_address"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>DNS地址：</label>
+                              	<textarea class="setup_status" id="dns_address"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>MAC地址：</label>
+                              	<textarea class="setup_status" id="mac_address"></textarea>
+							  </div> 
+                              
+     							<div class="setup_buttons_div">
+                                	<button class="setup_button" id="set_dhcp_network">
+                               		<div align="center">DHCP配置</div>
+                                	</button>
+                                    <button class="setup_button" id="set_manual_network">
+                                    <div align="center">手动配置</div>
+                                    </button>
+                                    <button class="setup_button" id="get_network_config">
+                                    <div align="center">获取信息</div>
+                                    </button> 
+                              	</div>                         
+
+                            </div>
+                
+                            
+                            </td>
+                          </tr>
+                          <tr>
+                          	<th width="433" height="25" scope="col">
+                            	<div align="center" style="font-weight: normal">界面设置</div>
+                            </th>
+                            <td width="504" scope="col">
+                            	<div align="center" style="font-weight: normal">实时监控设置</div>
+                            </td>
+                          </tr>                          
+                          
+                          <tr>
+                            <th height="216" scope="col">
+                            
+                              <div class="interface_set">
+                                      <p>
+                                        <input type="radio" name="sel_style" id="sel_style_1" value="1">
+                                        <label for="sel_style_1">界面风格1</label>
+                                      </p>
+                                      <p>&nbsp;</p>
+                                      <p><br/>
+                                        <input type="radio" name="sel_style" id="sel_style_2" value="2">
+                                        <label for="sel_style_2">界面风格2</label>
+                                      </p>
+                                      <p>&nbsp;</p>
+                                      <p><br/>
+                                        <input type="radio" name="sel_style" id="sel_style_3" value="3">
+                                        <label for="sel_style_3">界面风格3</label>
+                                      </p>
+                                      <p><br/>
+                                      </p>
+                                    </div>
+
+                           	  <div class="setup_img" style="left: 418px; top: 385px;">
+                                        	<img src="images/img_style_1.png" alt="" width="93%" height="89%"/>
+                                        </div>
+                              <div class="setup_img" style="left: 418px; top: 457px;">
+                                        	<img alt="" src="images/img_style_2.png"/>
+                                        </div>    
+                              <div class="setup_img" style="left: 418px; top: 530px;">
+                                        	<img alt="" src="images/img_style_3.png"/>
+                                        </div> 
+     							<div class="img_style_button_div">
+                                    <button class="setup_button" id="set_style_config">
+                                    <div align="center">设置风格</div>
+                                    </button>
+                                    <button class="setup_button" id="sys_default_config">
+                                    <div align="center">加载工厂设置</div>
+                                    </button>                                     
+<!--                                    <button class="setup_button" id="sys_reboot">
+                                    <div align="center">系统重启</div>
+                                    </button>-->                                    
+                                </div>
+                                
+                            </th>
+                            <td width="504">
+                            <div class="setup" style="font-size: 16px; width: 380px; height: 205px; position: absolute; top: 381px;">
+                              <div align="left" class="setup_status_unit">
+								<label>视频1地址：</label>
+                                <textarea class="monitor_set_text" id="video_1"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>视频2地址：</label>
+                                <textarea class="monitor_set_text" id="video_2"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>视频3地址：</label>
+                                <textarea class="monitor_set_text" id="video_3"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>视频4地址：</label>
+                              	<textarea class="monitor_set_text" id="video_4"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>视频5地址：</label>
+                              	<textarea class="monitor_set_text" id="video_5"></textarea>
+							  </div>
+                              <div align="left" class="setup_status_unit">
+								<label>视频6地址：</label>
+                              	<textarea class="monitor_set_text" id="video_6"></textarea>
+							  </div>
+								<div class="monitor_set_button_div">
+                                    <button class="setup_button" id="clear_monitor_info">
+                                    <div align="center">清空文本</div>
+                                    </button>                                
+                                    <button class="setup_button" id="get_monitor_config">
+                                    <div align="center">获取地址</div>
+                                    </button>
+                                    <button class="setup_button" id="set_monitor_config">
+                                    <div align="center">修改地址</div>
+                                    </button>                                    
+                                </div>                              
+                              
+                              
+                            </div>                            
+                            
+                            </td>
+                          </tr>
+                        </table>
+
+<!--结束Setup页面-->
+					</div>
+					<div class="coll-btn">						
+							<div class = "back">
+								<ul class = "home_ul" id = "live_home_ul">
+									<li class = "live_home_pic">
+										<a href = "main.html">
+											<span class = "home_span"></span>
+											<span class = "backHome">返回主页</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+				  </div>
+			  </div>	
+				</div>
+			</div>
+			<div class="coll-bottom">
+				<span></span>
+				<font>
+					<marquee class = "text_marquee" direction = "left" behavior = "scroll" scrollamount = 6 scrolldelay = 50 onmouseover = this.stop() onmouseout = this.start()>
+						智翔集团期待为您提供最好的服务！
+					</marquee>
+				</font>
+			</div>
+		</div>
+	</body>
+</html>

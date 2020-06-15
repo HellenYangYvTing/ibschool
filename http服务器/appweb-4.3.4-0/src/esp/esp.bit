@@ -1,0 +1,62 @@
+/*
+    esp.bit -- Bit File for Embedded Server Pages
+ */
+
+Bit.load({
+    targets: {
+        libmod_esp: {
+            type: 'lib',
+            depends: [ 'libappweb', 'sqlite' ],
+            sources: [ '*.c' ],
+            headers: [ '*.h' ],
+            exclude: /esp\.c/,
+            packs: [ 'esp' ],
+            _UNUSED_enable: "bit.packs.esp.enable",
+        },
+
+        espcmd: {
+            path: '${BIN}/esp${EXE}',
+            type: 'exe',
+            depends: [ 'libappweb', 'sqlite' ],
+            sources: [ '*.c' ]
+            platforms: [ 'local' ],
+            packs: 'esp',
+            _UNUSED_enable: "bit.packs.esp.enable",
+        },
+
+        'esp.conf': {
+            type: 'file',
+            files: [ 'esp.conf' ],
+            packs: 'esp',
+        },
+
+        'esp.conf.server': {
+            type: 'file',
+            path: '../server/esp.conf',
+            files: [ 'esp.conf' ],
+            packs: 'esp',
+        },
+
+        'esp.www': {
+            type: 'file',
+            path: '${BIN}/esp-www/',
+            files: [ 'esp-www/' ],
+            platforms: [ 'local' ],
+            packs: 'esp',
+        },
+
+        'esp-configure': {
+            scripts: {
+                postconfig: "
+                    if (bit.platform.os == 'vxworks') {
+                        let evars = []
+                        for (let [key,value] in bit.env) {
+                            evars.push('EspEnv ' + key + ' \"' + value + '\"\n')
+                        }
+                        bit.dir.lib.join('esp-' + bit.platform.os + '.conf').write(evars.join())
+                    }
+                ",
+            },
+        },
+    },
+})

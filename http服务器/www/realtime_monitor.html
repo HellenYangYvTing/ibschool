@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>实时监控</title>
+		<link rel="stylesheet" type="text/css" href="style/module.css"/>
+        
+		<style type="text/css">
+			.player{
+				width: 331px;
+				height: 300px;
+			}
+			.player-title{
+				font-size:14px;
+				background: url("../images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+				border: 0 none;
+				color: #FFFFFF;
+				height: 47px;
+				width: 90px;
+				text-align:center;
+				vertical-align:middle;
+			}
+		.player1 {
+				width: 331px;
+				height: 300px;
+			}
+        </style>
+        
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript" src="js/cookie.js"></script>        
+		<script type="text/javascript" language="javascript">
+		
+			function checkLogin()
+			{
+				if(CookieUtil.get("username") == "null" && CookieUtil.get("passwd") == "null")
+					return false;
+				else
+					return true;
+			}
+			$(function()
+			{
+				jQuery.ajaxSetup({cache:false});
+				if(!(checkLogin()))
+				{
+					alert("请先登录！");
+					window.location.href = "index.html";
+				}
+			});
+		
+/////////////////////////////////////////////////////////////////////////////////////////////////
+			$(function()
+			{
+				var video_1, video_2, video_3, video_4, video_5, video_6;
+				
+				$.ajaxSettings.async = false;	//setup async mode for getJSON return data.
+				
+				$.getJSON("./cgi-bin/setup",{"module":"monitor_config","command":"get"},
+					function(rdata)
+					{
+						video_1 = rdata.video_1;
+						video_2 = rdata.video_2;
+						video_3 = rdata.video_3;
+						video_4 = rdata.video_4;
+						video_5 = rdata.video_5;
+						video_6 = rdata.video_6;									
+					});
+										
+				/* transfer video address to vlc-player plugin. */
+				$('<embed src="' + video_1 + '" width="300" type="application/x-vlc-plugin" id="vlc2" height="230" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2" name="vlc" autostart="true" loop="true"></embed>').appendTo('#span_video_1');	
+				$('<embed src="' + video_2 + '" width="300" type="application/x-vlc-plugin" id="vlc2" height="230" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2" name="vlc" autostart="true" loop="true"></embed>').appendTo('#span_video_2');
+				$('<embed src="' + video_3 + '" width="300" type="application/x-vlc-plugin" id="vlc2" height="230" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2" name="vlc" autostart="true" loop="true"></embed>').appendTo('#span_video_3');
+				$('<embed src="' + video_4 + '" width="300" type="application/x-vlc-plugin" id="vlc2" height="230" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2" name="vlc" autostart="true" loop="true"></embed>').appendTo('#span_video_4');
+				$('<embed src="' + video_5 + '" width="300" type="application/x-vlc-plugin" id="vlc2" height="230" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2" name="vlc" autostart="true" loop="true"></embed>').appendTo('#span_video_5');
+				$('<embed src="' + video_6 + '" width="300" type="application/x-vlc-plugin" id="vlc2" height="230" pluginspage="http://www.videolan.org" version="VideoLAN.VLCPlugin.2" name="vlc" autostart="true" loop="true"></embed>').appendTo('#span_video_6');
+
+			});
+
+		</script>
+	</head>
+	<body>
+		<div class="body-bg" style="height: 750px;">
+			<div class="coll-nav">
+				<div class="center">
+					<div class="nav-eat">
+						<div class = "main_menu" style="height: 66px; width: 245px">
+							<span>实时监控</span>
+						</div>
+                        <div class="logo_software"><img alt="" src="images/logo_software.png" width="263" height="50"/></div>
+					</div>
+				</div>
+			</div>
+		  <div class="coll-body">
+				<div class="coll-left">
+					<img src="images/left_image.png" width="207" height="510" />
+				</div>
+			<div class="coll-right" style="margin-left:20px;">
+					<div class = "playerBox" style="width: 930px; padding-left: 15px; padding-top: 10px; height: 580px;">
+					  <table width="738" border="1" cellspacing="1" cellpadding="1">
+						  <tr>
+						    <td width="320">
+                            	<span class="player1" id="span_video_1">
+                            	</span>
+                            </td>
+						    <td width="218">
+                            	<span class="player1" id="span_video_2">
+                            	</span>
+						    </td>
+						    <td width="182">
+                                <span class="player1" id="span_video_3">
+                            	</span>
+                            </td>
+					      </tr>
+						  <tr>
+						    <td><div align="center">南门</div></td>
+						    <td><div align="center">西门</div></td>
+						    <td><div align="center">北门</div></td>
+					      </tr>
+						  <tr>
+						    <td>
+                                <span class="player1" id="span_video_4">
+                            	</span>                            
+                            </td>
+						    <td>
+                                <span class="player1" id="span_video_5">
+                            	</span>                            
+                            </td>
+						    <td>
+                                <span class="player1" id="span_video_6">
+                            	</span>                            
+                            </td>
+					      </tr>
+						  <tr>
+						    <td><div align="center">东门</div></td>
+						    <td><div align="center">食堂</div></td>
+						    <td><div align="center">体育场</div></td>
+					      </tr>
+					  </table>
+				</div>
+					<div class="coll-btn">						
+							<div class = "back" style="left: 331px; top: 701px; width: 170px; position: absolute;">
+								<ul class = "home_ul" id = "live_home_ul" style="width: 152px">
+									<li class = "live_home_pic" style="width: 151px">
+										<a href = "main.html">
+											<span class = "home_span"></span>
+											<span class = "backHome">返回主页</span>
+										</a>
+									</li>
+								</ul>
+					  </div>
+			  </div>
+		    </div>
+		  </div>
+	</div>
+			<div class="coll-bottom">
+				<span></span>
+				<font>
+					<marquee class = "text_marquee" direction = "left" behavior = "scroll" scrollamount = 6 scrolldelay = 50 onmouseover = this.stop() onmouseout = this.start()>
+						智翔集团期待为您提供最好的服务！
+					</marquee>
+				</font>
+			</div>
+		</div>
+</body>
+</html>

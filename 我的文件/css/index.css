@@ -1,0 +1,278 @@
+/* 中间部分开始 */
+.grid{
+    height: 480px;
+}
+
+.grid-col1 {
+    width: 190px;
+    height: 100%;
+    background-color: #FEFEFE;
+    color: #626262;
+    font-size: 14px; /*  不是给字的 是给/的 */
+}
+.grid-col1 a{
+    color: #626262;
+    font-size: 14px; /* 给链接字的  */
+    margin:0px 1px;
+}
+.grid-col1 ul{
+    padding: 10px 0px;
+}
+.grid-col1 ul li{
+   padding-left: 12px;
+   height: 25px;
+   line-height: 25px;
+}
+.grid-col1 ul li:hover{
+    background-color: #DBDBEA;
+}
+.grid-col1 a:hover{
+    color: #f10215;
+}
+/* 右边板块 */
+.grid-col2 {
+    width: 990px;
+    padding-top: 10px;
+    height: 470px;
+    
+}
+/* 右边内左边 */
+.grid-col2-1 {
+    
+    position: relative;
+    width: 590px;
+    height: 100%;
+   
+}
+.grid-col2-1 a:nth-child(1){
+    display: block;
+    width: 590px;
+    height: 470px;
+    background: url(../images/gl.png) no-repeat;
+   
+}
+/* 箭头部分 */
+.arrow-l,.arrow-r{
+    position: absolute;
+    top: 50%; 
+    width: 25px;
+    height: 40px;
+    transform: translateY(-50%);  
+    font-size: 20px;
+    line-height: 40px;
+}
+.arrow-r{
+    right: 0px;
+}
+.arrow-r:hover{
+    background-color: rgba(255, 255, 255,.6);
+}
+.arrow-l:hover{
+    background-color: rgba(255, 255, 255,.6);
+}
+.cicle{
+    width: 175px;
+    height: 17px;
+    bottom: 20px;
+    position: absolute;
+    left: 50px;
+    margin-left: -4px;
+}
+.cicle li{
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255,.6);
+    border-radius: 50%;
+    float: left;
+    margin: 3.5px 4.5px;
+}
+.cicle li:hover{
+    background-color: #fff;
+}
+/* 右边内中间边 */
+.grid-col2-2 {
+    width: 190px;
+    height: 100%;
+    margin-left: 10px;
+}
+.grid-col2-2 a:nth-child(1){
+    display: block;
+    width: 190px;
+    height: 150px;
+    background: url(../images/gm1.png) no-repeat;
+}
+.grid-col2-2 a:nth-child(2){
+    display: block;
+    margin-top: 10px;
+    width: 190px;
+    height: 150px;
+    background: url(../images/gm2.png) no-repeat;
+}
+.grid-col2-2 a:nth-child(3){
+    display: block;
+    margin-top: 10px;
+    width: 190px;
+    height: 150px;
+    background: url(../images/gm3.png) no-repeat;
+}
+/* 右边内右边 */
+.grid-col2-3 {
+    width: 190px;
+    height: 100%;
+    background-color: #FEFEFE;
+    position: relative;
+    
+}
+.grid-col2-3 img{
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    top: -5px;
+    left: 60px;
+} 
+ .start {
+    margin-top: 70px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    height: 45px;
+    white-space: nowrap;/*  强制一行内显示 */
+    overflow: hidden; /* 溢出隐藏 */
+    text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+.start a{
+    color:#666;
+    text-align: center;
+}
+.grid-col2-3 .start a:hover{
+    color: #f10215;
+}
+.login {
+    height: 40px;
+    margin-left: 20px;
+}
+.login a {
+    display: block;
+    float: left;
+    width: 70px;
+    height: 25px;
+    border-radius: 30px;
+    line-height: 25px;
+    margin-right: 10px;
+    text-align: center;
+    
+     
+}
+.login a:nth-child(1){
+    color: #f10215;
+    box-shadow: 2px 5px 19px rgba(0,0,0,.3);
+}
+.login a:nth-child(2){
+    color: #E5D790;
+    background-color: #363634;
+    
+}
+.login a:hover{
+    background-color: #f10215;
+    color: #fff;
+}
+.mid{
+    height: 120px;
+    margin-left: 10px;
+    border-bottom:1px solid #DEDEDE;
+}
+.mid span{
+    font-size: 12px;
+    margin-right: 10px;
+    color: #999;
+}
+.mid h5{
+    font-size: 12px;
+}
+.mid h6{
+    float: left;
+    display: block;
+    width: 35px;
+    height: 15px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 2px;
+    background-color: #E47F7F; 
+}
+.mid div{
+    margin-top: 5px;
+    overflow: hidden;
+    float: left; 
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    height: 15px;
+    text-align: center;
+    white-space: nowrap;/*  强制一行内显示 */
+    overflow: hidden; /* 溢出隐藏 */
+    text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+.mid a{
+    margin-left: 5px;
+    color: #666;
+}
+.mid a:hover{
+    color: #f10215;
+}
+
+.end{
+    height: 180px;
+    margin: 10px 15px;
+}
+.end a{
+    display: block;
+    height: 60px;
+    width: 40px;
+    
+    float: left;
+}
+.end a:nth-child(1){
+    background: url(../images/11.png) no-repeat;  
+    
+}
+.end a:nth-child(2){
+    background: url(../images/12.png) no-repeat; 
+}
+.end a:nth-child(3){
+    background: url(../images/13.png) no-repeat; 
+}
+.end a:nth-child(4){
+    background: url(../images/14.png) no-repeat; 
+}
+.end a:nth-child(5){
+    background: url(../images/21.png) no-repeat; 
+}
+.end a:nth-child(6){
+    background: url(../images/22.png) no-repeat; 
+}
+.end a:nth-child(7){
+    background: url(../images/23.png) no-repeat; 
+}
+.end a:nth-child(8){
+    background: url(../images/24.png) no-repeat; 
+}
+.end a:nth-child(9){
+    background: url(../images/31.png) no-repeat; 
+}
+.end a:nth-child(10){
+    background: url(../images/32.png) no-repeat; 
+}
+.end a:nth-child(11){
+    background: url(../images/33.png) no-repeat; 
+}
+.end a:nth-child(12){
+    background: url(../images/34.png) no-repeat; 
+}
+
+/* 中间部分结束 */

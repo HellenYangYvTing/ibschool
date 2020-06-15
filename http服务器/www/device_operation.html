@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>设备操作</title>
+		<link rel="stylesheet" type="text/css" href="style/module.css"/>
+        
+		<style type="text/css">
+			.device {
+	float: left;
+	width: 300px;
+	height: 480px;
+	margin: 0px auto auto 16px;
+			}
+			.device_title{
+	margin: 0px auto 5px 10px;
+	text-align-last: center;
+			}
+			.device_img{
+				width: 265px;
+				height: 229px;
+				margin: 10px 10px 10px 10px;
+			}
+			.device_img img{
+				width:100%;
+				height:100%;
+			}
+			.device_button{
+				background: url("images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+				border: 0 none;
+				color: #FFFFFF;
+				height: 47px;
+				width: 90px;
+				text-align:center;
+				vertical-align:middle;
+			}
+			.clear_button{
+				background: url("images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+				border: 0 none;
+				color: #FFFFFF;
+				height: 47px;
+				width: 90px;
+				text-align: center;
+				vertical-align: bottom;
+			}			
+			.devices_buttons_div{
+				
+			}
+			.device_status_div{
+				margin-top: 15px;
+			}
+			.device_status_unit{
+				
+			}
+			.device_status_div label{
+				font-size:14px;
+				vertical-align:top;
+			}
+			.device_status_div textarea{
+				vertical-align:top;
+			}
+		</style>
+        
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type = "text/javascript" src = "js/cookie.js"></script>  
+		<script type="text/javascript" language="javascript">
+		
+			function checkLogin()
+			{
+				if(CookieUtil.get("username") == "null" && CookieUtil.get("passwd") == "null")
+					return false;
+				else
+					return true;
+			}
+			$(function()
+			{
+				jQuery.ajaxSetup({cache:false});
+				if(!(checkLogin()))
+				{
+					alert("请先登录！");
+					window.location.href = "index.html";
+				}
+			});	
+					
+/////////////////////////////////////////////////////////////////////////////////////
+			$(function(){
+				$('.device_button').click(function(){
+					var $t=$(this);
+					var $status = $t.parent().next();
+					if(!$t.attr('rel')){
+						alert('该功能暂未生效');
+						return;
+					}
+					$.getJSON('/cgi-bin/cgi_control'
+					,{"sandtable_id":"001","sandtable_node_id":$t.attr('rel'),"operate_code":$t.attr('cmd'),"operate_data":"null"},					
+					function(data){
+						$status.find('.device_status').val(data.resultcode);
+						var r = data.resultdata;
+						
+						if ($t.attr('cmd')==("get")){
+							$status.find('.device_result').val(
+								r.error?(r.error):(fns[$t.attr('rel')](r))
+							);
+						} else {
+							$status.find('.device_result').val(
+								r.error?(r.error):(r.success)
+							);							
+						}
+					});
+				});
+				
+				$('.clear_button').click(function(){
+					var $t=$(this);
+					var $status = $t.parent().next();
+					$status.find('.device_status').val("");
+					$status.find('.device_result').val("");
+				});
+				
+			});
+			
+			var fns={
+				'1':function(r){
+					return '温度：'+ r.temperature +'\r\n湿度：'+ r.humidity;
+				},
+				'2':function(r){
+					return '风速：'+ r.windspeed;
+				},
+				'3':function(r){
+					return '风向：'+ r.winddirection;
+				}			
+			};
+		
+		</script>
+	</head>
+	<body>
+		<div class="body-bg">
+			<div class="coll-nav">
+				<div class="center">
+					<div class="nav-eat">
+						<div class = "main_menu">
+							<span>设备操作</span>
+						</div>
+                        <div class="logo_software"><img alt="" src="images/logo_software.png" width="263" height="50"/>
+                        </div>                         
+					</div>
+				</div>
+			</div>
+			<div class="coll-body">
+				<div class="coll-left">
+					<img src="images/left_image.png" width="207" height="510" />
+				</div>
+				<div class="coll-right">
+                    <table width="970" height="509" border="1" cellspacing="1" cellpadding="1">
+                      <tr>
+                        <td width="200">
+                            <div class="device" style="">
+                                <div align="center">温湿度计</div>
+                              <div class="device_img"><img alt="" src="images/温湿度计.jpg"/></div>
+                                <div class="devices_buttons_div">
+                                    <button rel="1" cmd="get" class="device_button">获取温湿度</button>
+                                    <button rel="1" cmd="status" class="device_button">设备状态</button>
+                                    <button rel="1" cmd="reset" class="device_button">重启设备</button>
+                                    <button class="clear_button">清空结果</button>
+                              </div>
+                                <div class="device_status_div">
+                                    <div align="center" class="divce_status_unit">
+                                        <label>返回状态：</label>
+                                        <textarea style="height: 20px; font-weight: bold;" rows="1" class="device_status"></textarea>
+                                    </div>
+                                    <div align="center" class="divce_status_unit">
+                                        <label>返回结果：</label>
+                                        <textarea style="font-weight: bold;" class="device_result" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td width="468">                        
+                          <div class="device" style="">
+                            <div align="center">风速仪</div>
+                            <div class="device_img"><img alt="" src="images/风速仪.png"/></div>
+                                <div class="devices_buttons_div">
+                                    <button rel="2" cmd="get" class="device_button">获取风速值</button>
+                                    <button rel="2" cmd="status" class="device_button">设备状态</button>
+                                    <button rel="2" cmd="reset" class="device_button">重启设备</button>
+                                    <button class="clear_button">清空结果</button>
+                                </div>
+                                <div class="device_status_div">
+                                    <div align="center" class="divce_status_unit">
+                                        <label>返回状态：</label>
+                                        <textarea style="height:20px; font-weight: bold;" rows="1" class="device_status"></textarea>
+                                    </div>
+                                    <div align="center" class="divce_status_unit">
+                                        <label>返回结果：</label>
+                                        <textarea style="font-weight: bold;" class="device_result" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </td> 
+                        <td width="468">                                               
+                            <div class="device">
+                                <div align="center">风向仪</div>
+                              <div class="device_img"><img src="images/风向仪.png" alt="" class="bill-list"/></div>
+                                <div class="devices_buttons_div">
+                                  <button rel="3" cmd="get" class="device_button">获取风向值</button>
+                                    <button rel="3" cmd="status" class="device_button">设备状态</button>
+                                    <button rel="3" cmd="reset" class="device_button">重启设备</button>
+                                    <button class="clear_button">清空结果</button>
+                              </div>
+                                <div class="device_status_div">
+                                    <div align="center" class="divce_status_unit">
+                                        <label>返回状态：</label>
+                                        <textarea style="height:20px; font-weight: bold;" rows="1" class="device_status"></textarea>
+                                    </div>
+                                    <div align="center" class="divce_status_unit">
+                                        <label>返回结果：</label>
+                                        <textarea style="font-weight: bold;" class="device_result" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div> 
+                       </td>
+                      </tr>
+                    </table>
+					<div class="coll-btn">						
+							<div class = "back">
+								<ul class = "home_ul" id = "live_home_ul">
+									<li class = "live_home_pic">
+										<a href = "main.html">
+											<span class = "home_span"></span>
+											<span class = "backHome">返回主页</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>	
+				</div>     
+			</div>
+
+			<div class="coll-bottom">
+				<span></span>
+				<font>
+					<marquee class = "text_marquee" direction = "left" behavior = "scroll" scrollamount = 6 scrolldelay = 50 onmouseover = this.stop() onmouseout = this.start()>
+						智翔集团期待为您提供最好的服务！
+					</marquee>
+				</font>
+			</div>        
+		</div>        
+	</body>
+</html>

@@ -1,0 +1,36 @@
+/*
+    package.bit - Package targets for Appweb
+ */
+
+Bit.load({
+    targets: {
+        start: {
+            enable: "bit.platform.like == 'unix' || bit.platform.like == 'windows'",
+            home: '${TOP}',
+            action: "startService()",
+            depends: ['compile', 'stop'],
+            generate: "${BIN}/appman install enable start",
+        },
+
+        stop: {
+            enable: "bit.platform.like == 'unix' || bit.platform.like == 'windows'",
+            home: '${TOP}',
+            action: "stopService()",
+            depends: ['compile'],
+            generate: "@${BIN}/appman stop disable uninstall >/dev/null 2>&1 ; true"
+        },
+
+        uninstall: {
+            depends: [ 'build', 'stop' ],
+            action: "
+                removeFile(bit.prefixes.etc.join('appweb.conf'))
+                removeFile(bit.prefixes.etc.join('esp.conf'))
+                removeFile(bit.prefixes.etc.join('mine.types'))
+                removeFile(bit.prefixes.etc.join('install.conf'))
+                removeDir(bit.prefixes.inc.join(bit.settings.product))
+                uninstallBinary()
+            ",
+            'generate-action': true,
+        },
+    },
+})

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>登录</title>
+    <link rel="stylesheet" type="text/css" href="style/login.css"/>
+
+	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.8.custom.min.js"></script>
+	<script type="text/javascript" src="js/treddi.js"></script>
+	<script type="text/javascript" src="js/cookie.js"></script>
+	<script>
+		function handle()
+		{
+			if($("#name").val() == "")
+			{
+				alert("请输入登录名！");
+			}
+			else if($("#passwd").val() == "")
+			{
+				alert("请输入正确的密码！");
+			}
+			else
+			{
+				$(".button").html("<b>登录中...</b>");
+				$.post("cgi-bin/login",{username:$("#name").val(),passwd:$("#passwd").val()},function(data,textStatus)
+				{
+					if(data.loginStatus == "errorDB")
+					{
+						alert("errorDB!");
+					}
+					if(data.loginStatus == "error")
+					{
+						alert("error：请重新输入登录名和密码");
+						$(".button").html("<b>登录</b>");
+						$("#name").val("");
+						$("#passwd").val("");
+					}
+					if(data.loginStatus == "ok")
+					{
+						CookieUtil.set("username",$("#name").val());
+						CookieUtil.set("passwd",$("#passwd").val());
+						window.location.href = "main.html";
+					}
+				});
+			}
+		}
+		
+		$(document).ready(function()
+		{
+			$('#ddd').dddgallery({		
+				//dimensioni box_principale
+				p_width: 420,
+				//impostazioni di default dei mini-box
+				min_width: 150,
+				max_width: 300,
+				porp_height: 0,
+				min_opacity: 0.2,
+				livel_range: 20	
+			});
+			$(".button").bind("click",handle);
+		});
+		
+		$(function()
+		{
+			CookieUtil.delete("username");
+			CookieUtil.delete("passwd");
+		});
+		
+		document.onkeydown = function(oEvent)
+		{
+			oEvent = oEvent || window.event;
+			var currKey = oEvent.keyCode || oEvent.which || oEvent.charCode;
+			if(currKey == 13)
+			{
+				handle();
+			}
+		}
+		
+	</script>
+</head>
+
+<body>
+	<div class = "main_body">
+		<div class = "top">
+		<img  src="images/logo_ultra.png" /></div>
+		<div class = "left">
+			<div id="ddd">
+				<div class="box box_principale">
+					<img  src="images/login1.png" />
+				</div>
+				<div class="box">
+					<img  src="images/login2.png" />
+				</div>
+				<div class="box">
+					<img  src="images/login3.png" />
+				</div>
+				<div class="box">
+					<img  src="images/login4.png" />
+				</div>
+				<div class="box">
+					<img  src="images/login5.png" />
+				</div>
+				<div class="box">
+					<img  src="images/login3.png" />
+				</div>
+				<div class="box">
+					<img  src="images/login1.png" />
+				</div>
+			</div>
+		</div>
+        
+		<div class="logo_software"><img src="images/logo_software.png" alt="" width="395" height="75"/> 
+        </div>
+        
+		<div class = "right">
+			<!-- <form name="login" action = "../cgi-bin/login" method = "post"> -->
+              <div class = "username">
+                  <label for = "username"><b>登录名:</b></label>
+                  <input type="text" name="username" id="name" value="" maxlength="32" tabindex="1" style = "font-size: 18px; border-color: #39F;"/> 
+              </div>
+              <div class = "password">
+                  <label for = "password"><b>登录密码:</b></label>
+                  <input type="password" name="passwd" id="passwd" value="" maxlength="32" tabindex="1" style = "font-size: 18px; border-color: #39F;"/> 
+              </div>
+              <div class = "submit">
+                  <button type="submit" class="button" tabindex="5" style= "font-size:18px"><b>登　录</b></button>
+              </div>
+			<!-- </form> -->
+			<div class = "register_link">
+				<a href = "register.html" tabindex="8">免费注册</a>
+			</div>
+		</div>
+		<div class = "foot">
+		  <p>智翔集团以培养、输送、派遣产业所需的不同技术方向、不同层次的优质人才为使命，提供人才服务综合平台软硬件构建及运营服务，成为架设在高校、企业、政府之间的一座桥梁。</p>
+		</div>
+	</div>
+</body>
+</html>

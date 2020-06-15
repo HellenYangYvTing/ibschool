@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>用户注册</title>
+	    <link rel="stylesheet" type="text/css" href="style/register.css"/>
+
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type = "text/javascript" src = "js/cookie.js"></script>
+		<script type = "text/javascript" src = "js/register.js"></script>
+        <script language="javascript">
+		      	
+        </script>
+	
+    </head>
+    <body>
+		<div class = "main_body">
+			<div class = "top">
+				<img  src="images/Ultrawise.png" />
+			</div>
+                          
+			<div class = "nav"> 
+                         
+				<div class = "reg_textl">
+					请填写注册信息
+				</div>
+				<div class = "arrow">
+				</div>
+				<div class = "reg_textr">
+					智翔集团简介
+				</div>
+			</div>
+                        
+		  <div id="mainbody">
+			<div id="formwrapper"> 	
+               <form name="form1" action="cgi-bin/register" method="post" onsubmit="return check()"> 
+                  <fieldset> 
+                    <legend>用户注册</legend> 
+                      <p><strong>您的电子邮箱不会被公布出去,但是必须填写.</strong></P><!-- 在您注册之前请先认真阅读服务条款. -->
+                      <div> 
+                        <label for="Name">用户名</label> 
+                        <input id="text1" type="text" name="text1" value="" size="25" maxlength="30" class="input_out"  onblur="check()" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" />
+                        *(最多30个字符)<br> 
+                      </div> 
+                      <div> 
+                         <label for="password">登录密码</label> 
+                         <input id="text2" type="password" name="text2" size="25" maxlength="15" class="input_out" onblur="check()" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /> 
+                         *(最多15个字符)<br> 
+                      </div> 
+                      <div> 
+                         <label for="confirm_password">确认密码</label> 
+                         <input id="text3" type="password" name="text3" size="25" maxlength="15" class="input_out" onblur="check()" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /> 
+                         *<br> 
+                      </div> 
+					  <div> 
+                        <label for="Email">邮件地址</label> 
+                        <input id="text4" type="text" name="text4" value="" size="25" maxlength="150" class="input_out" onblur="check()" onfocus="this.className='input_on';this.onmouseout=''" onblur="this.className='input_off';this.onmouseout=function(){this.className='input_out'};" onmousemove="this.className='input_move'" onmouseout="this.className='input_out'" /> 
+                        *<br> 
+                      </div> 
+                      <div> 
+                      <!--    <label for="AgreeToTerms">同意服务条款</label> 
+                          <input type="checkbox" name="AgreeToTerms" id="AgreeToTerms" value="1" /> 
+                          <a href="#" title="您是否同意服务条款">先看看条款？</a> * </div> -->
+                      <div class="enter"> 
+                          <input type="submit" value="提交" name="text6" class="buttom" /> 
+                          <input type="reset" value="重置" name="text7" class="buttom"  /> 
+			
+                      </div> 
+			<div class = "register_link">
+				<a href = "index.html" tabindex="8">返回</a>
+			</div>
+                   <!--   <p><strong>* 在提交您的注册信息时, 我们认为您已经同意了我们的服务条款.<br> 
+                      * 这些条款可能在未经您同意的时候进行修改.</strong></p> -->
+                   </fieldset> 
+               </form> 
+            </div> 
+            <!--
+					<form name="form1" action="../cgi-bin/register.cgi" method="post" onsubmit="return check()">
+				<table cellspacing = "20px">
+					<tr>
+						<td align = "right" width = 120>
+							用户名：
+						</td>
+						<td>
+							<input id="text1" type="text" name="text1" onblur="check()">
+							<div id="div1" style="display:inline">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align = "right" width = 120>
+							登录密码：
+						</td>
+						<td>
+							<input id="text2" type="password" name="text2" onblur="check()">
+							<div id="div2" style="display:inline">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align = "right" width = 120>
+							确认密码：
+						</td>
+						<td>
+							<input id="text3" type="password" name="text3" onblur="check()">
+							<div id="div3" style="display:inline">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align = "right" width = 120>
+							邮件地址：
+						</td>
+						<td align = "left">
+							<input id="text4" type="text" name="text4" onblur="check()">
+							<div id="div4" style="display:inline">
+							</div>
+						</td>
+					</tr>-->
+					<!-- <tr align="center">
+						<td align="center">
+							<input type="submit" value="提交" name="tect6">
+						</td>
+						<td align="center">
+							<input type="reset" value="重置" name="text7">
+						</td>
+					</tr> -->
+		<!--		</table>
+				<div class = "submit">
+					<button type="submit" class="btn_sub" tabindex="5" style= "font-size:16px"><b>提  交</b></button>
+				</div>
+				<div class = "reset">
+					<button type="reset" class="btn_res" tabindex="5" style= "font-size:16px"><b>重  置</b></button>
+				</div>
+			</form>
+		-->
+			<div class = "introduction">
+				<!--<textarea class = "textarea" rows="15" cols="54" readonly="readonly">智翔集团（Ultrawise）是中国电子信息产业领先的人才定制综合解决方案提供商。
+       建设可支持多方需求的人才服务综合平台，利用平台化的人才招聘、培养、评测、发展体系服务于政府高新区、企业及高校，是经集团多年实践验证的创新型人才定制模式。
+       集团以培养、输送、派遣产业所需的不同技术方向、不同层次的优质人才为使命，提供人才服务综合平台软硬件构建及运营服务，成为架设在高校、企业、政府之间的一座桥梁。
+       保持输出人才标准与与产业需求的良好对接，是智翔集团坚持奉行的宗旨。集团通过承接业界真实的项目外包，不断积累和更新电子信息产业最前沿的产业技术和最优秀的行业经验；以此为基础，集团自主研发的软硬件实训系统可以为通信、嵌入式等多个重点行业，为政府高新区、企业、高校等电子信息产业不同主体提供实训系统产品，并提供基于上述实训系统的运营服务。
+       实训基地依托智翔集团自主研发的软硬件实训系统，可提供企业级的真实工作环境、商业级的真实案例和项目级的真实训练，并可为用人单位考察和试用拟录用人员的实战操作平台，协助提升产业园区及相关企业所需人才的实际工作能力和技能水平。
+			</textarea>-->
+	         <p>智翔集团（Ultrawise）是中国电子信息产业领先的人才定制综合解决方案提供商。</p>
+             <p>建设可支持多方需求的人才服务综合平台，利用平台化的人才招聘、培养、评测、发展体系服务于政府高新区、企业及高校，是经集团多年实践验证的创新型人才定制模式。</p>
+             <p>集团以培养、输送、派遣产业所需的不同技术方向、不同层次的优质人才为使命，提供人才服务综合平台软硬件构建及运营服务，成为架设在高校、企业、政府之间的一座桥梁。</p>
+             <p>保持输出人才标准与与产业需求的良好对接，是智翔集团坚持奉行的宗旨。集团通过承接业界真实的项目外包，不断积累和更新电子信息产业最前沿的产业技术和最优秀的行业经验；以此为基础，集团自主研发的软硬件实训系统可以为通信、嵌入式等多个重点行业，为政府高新区、企业、高校等电子信息产业不同主体提供实训系统产品，并提供基于上述实训系统的运营服务。</p>
+             <p>实训基地依托智翔集团自主研发的软硬件实训系统，可提供企业级的真实工作环境、商业级的真实案例和项目级的真实训练，并可为用人单位考察和试用拟录用人员的实战操作平台，协助提升产业园区及相关企业所需人才的实际工作能力和技能水平。</p>
+			</div>
+		  </div>	
+		</div> 
+    </body>
+</html>

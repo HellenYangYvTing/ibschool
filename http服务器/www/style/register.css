@@ -1,0 +1,32 @@
+body{font-family: Helvetica,sans-serif,Arial;font-size:12px; color:#666666; background:#fff; height: 100%;margin: 0 auto;overflow: hidden;padding: 0;position: absolute;width: 100%;}
+* { margin:0; padding:0; } 
+.main_body{height: 720px;margin: 0 auto;overflow:hidden;position: relative;width: 1280px;}
+.top{margin-top: 20px;}
+.top img{height: 10%;width: 22%;display:block;margin-left:0}
+.nav{background: url("../images/register_nav.png") repeat scroll 0 0 transparent;height: 45px;}
+.reg_textl{color: #FAC961;float:left;font-weight: bold; font-size:16px; height: 45px;line-height: 45px;text-align: center;width: 230px;}
+.arrow{ background: url("../images/arrow.png") no-repeat scroll 0 0 transparent;float: left;height: 45px;margin-left: 400px;position: relative;width: 21px;}
+.reg_textr{color: #FAC961;float:left;font-weight: bold; font-size:16px;  height: 45px;line-height: 45px;text-align: center;width: 180px;}
+	
+#mainbody{margin:80px auto 0;width:1120px;height:280px}
+button{background: none repeat scroll 0 0 #FF7E00;border: 3px solid #D84600;color: white;height: 40px;width: 100px;}
+.introduction{border: 2px solid #D84600;float: right;height: 294px;width: 490px;font-size:16px;line-height:1.5;text-indent:2em;overflow-x:scroll;}
+.textarea{font-size: 16px;height: 240px;width: 571px;text-indent:2em;}
+#formwrapper p {color:#1E7ACE; margin:4px; font-size:14px;} 
+input, select { padding:1px; margin:2px; font-size:12px;} 
+.input_on{padding:2px 8px 0pt 3px;height:18px;border:1px solid #FF8E42;background-color:#FFFFCC;}
+.input_off{padding:2px 8px 0pt 3px;height:18px;border:1px solid #7F9DB9;background-color:#FFF;}
+.input_move{
+padding:2px 8px 0pt 3px;
+height:18px;
+border:1px solid #FF8E42;
+background-color:#FFFFCC;
+}
+.input_out{/*height:16px;Ä¬ÈÏ¸ß¶È*/padding:2px 8px 0pt 3px;height:18px;border:1px solid #7F9DB9;background-color:#FFF;}
+#formwrapper { font-size:14px;width:450px; height: 250px;padding:20px; text-align:left; border:2px solid #D84600; float:left;} 
+fieldset { padding:10px; margin-top:5px; border:1px solid #A4CDF2; background:#fff; } 
+fieldset legend { color:#1E7ACE; font-weight:bold; padding:3px 20px 3px 20px; border:1px solid #A4CDF2; background:#fff; } 
+fieldset label { float:left; width:90px; text-align:right; padding:4px; margin:1px; } 
+fieldset div { clear:left; margin-bottom:2px; } 
+.enter{ text-align:center;} 
+.buttom{color:#FFFFFF;background-color:#FF7F00;border:1px bold #FF7f00;padding:3px;font-family: Helvetica,sans-serif,Arial;}

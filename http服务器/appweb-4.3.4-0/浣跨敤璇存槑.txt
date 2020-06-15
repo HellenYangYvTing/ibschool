@@ -1,0 +1,5 @@
+make -f projects/appweb-linux-arm-static.mk
+
+修改信息可以通过对比工具查看也可以从
+http://blog.csdn.net/lqrensn/article/details/9112321
+获取

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>帮助</title>
+		<link rel="stylesheet" type="text/css" href="style/module.css"/>
+             
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript" src="js/cookie.js"></script>     
+		<script type="text/javascript" language="javascript">
+		
+			function checkLogin()
+			{
+				//if(CookieUtil.get("loginStatus") == "yes")
+				if(CookieUtil.get("username") == "null" && CookieUtil.get("passwd") == "null")
+					return false;
+				else
+					return true;
+			}
+			$(function()
+			{
+				jQuery.ajaxSetup({cache:false});
+				if(!(checkLogin()))
+				{
+					alert("请先登录！");
+					window.location.href = "index.html";
+				}
+			});	
+		</script>
+	</head>
+	<body>
+		<div class="body-bg">
+			<div class="coll-nav">
+				<div class="center">
+					<div class="nav-eat">
+						<div class = "main_menu">
+							<span>系统帮助</span>
+						</div>
+                        <div class="logo_software"><img alt="" src="images/logo_software.png" width="263" height="50"/>
+                        </div>                        
+					</div>
+				</div>
+			</div>
+			<div class="coll-body">
+				<div class="coll-left">
+					<img src="images/left_image.png" width="207" height="510" />
+				</div>
+				<div class="coll-right">
+					<div class = "helpContent">
+                    	<object classid="clsid:CA8A9780-280D-11CF-A24D-444553540000" id="Pdf1" width="948" height="508">
+							<param name="_Version" value="327680" />
+							<param name="_ExtentX" value="2646" />
+							<param name="_ExtentY" value="1323" />
+							<param name="_StockProps" value="0" />
+							<param name="SRC" value="pdf文件地址" />
+							<embed src="help.pdf" width="948" height="508" _version="327680" _extentx="2646" _extenty="1323" _stockprops="0">
+                            </embed>
+						</object>
+                    </div>
+					<div class="coll-btn">						
+							<div class = "back">
+								<ul class = "home_ul" id = "live_home_ul">
+									<li class = "live_home_pic">
+										<a href = "main.html">
+											<span class = "home_span"></span>
+											<span class = "backHome">返回主页</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div class="coll-bottom">
+				<span></span>
+				<font>
+					<marquee class = "text_marquee" direction = "left" behavior = "scroll" scrollamount = 6 scrolldelay = 50 onmouseover = this.stop() onmouseout = this.start()>
+						智翔集团期待为您提供最好的服务！
+					</marquee>
+				</font>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+
+sudo naulitus:获得复制粘贴权限
+桥接模式
+禁用网络
+
+1.将文件编译一下生成有x86文件夹
+root@ubuntu:/home/hellen/Desktop/appweb-4.3.4-0# make -f  projects/appweb-linux-default.mk
+2.将appweb.conf 拷贝到新生成的文件夹bin文件下
+3.www拷贝到根目录下
+4.MV（192.168.1.100 ）
+   开发板（192.168.1.101）
+5. 将appweb改为555权限
+6. ./appweb
+7.浏览器输入http://(开发板ip):8080（http://192.168.1.101:8080）
+8登录
+   用户:admin
+   密码:ultrawise
+
+https://codepen.io/hisamikurita/pen/dyyJVQN

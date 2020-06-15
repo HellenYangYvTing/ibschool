@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" type="text/css" href="css/normalize.css" charset="utf-8"></link> -->
+    <link rel="shortcut icon" href="bitbug_favicon.ico" type="image/x-icon">
+	<title>我的介绍</title>
+	<!-- #795548 -->
+	<style>
+		.container {
+		  background: #795548;
+		  box-sizing: border-box;
+		  display: flex;
+		  flex-flow: column wrap;
+		  height: 80vh;
+		  margin-bottom: 5vh;
+		  text-align: center;
+		  text-transform: uppercase;
+		  width: 90vw;
+
+		}
+
+		.card {
+		  align-items: center;
+		  background: white;
+		  background-size: cover;
+		  border: 5px solid white;
+		  box-sizing: border-box;
+		  color: white;
+		  /*display: flex;*/
+		  flex-grow: 0;
+		  /*font-family: sans-serif;*/
+		  font-family:  'Hiragino Sans GB', arial, tahoma,'\5b8b\4f53', sans-serif;
+		  font-size: 16px;
+		  font-weight: bold;
+		  height: 50%;
+		  justify-content: center;
+		  outline: 5px solid white;
+		  text-shadow: 0 0 5px black;
+		  
+		  // Setting the heights of the elements so they meet
+		  // nicely at the bottom of the container
+		  &:nth-child(6n - 5) {
+		    height: 25%;
+		  }
+		  
+		  &:nth-child(6n-4) {
+		    height: 75%;
+		  }
+		  
+		  &:nth-child(6n-3) {
+		    height: 50%;
+		  }
+		  
+		  &:nth-child(6n-2) {
+		    height: 50%;
+		  }
+		  
+		  &:nth-child(6n-1) {
+		    height: 66.666%;
+		  }
+		  
+		  &:nth-child(6n) {
+		    height: 33.333%;
+		  }
+		}
+
+		// Presentational Styles
+
+		body {
+		  margin: 0;
+
+		}
+
+		.background {
+		  align-items: center;
+		  background: #795548;
+		  display: flex;
+		  flex-direction: column;
+		  height: 100vh;
+		  justify-content: center;
+		  width: 100vw;
+		}
+
+		button {
+		  background: white;
+		  border: 2px solid transparent;
+		  border-radius: 0;
+		  color: #FF648A;
+		  cursor: pointer;
+		  font-size: 24px;
+		  font-weight: bold;
+		  padding: 10px 20px;
+		  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+		  
+		  &:hover {
+		    background-color: #FF648A;
+		    border: 2px solid white;
+		    color: white;
+		  }
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="background">
+	  <div class="container" data-container>
+	    <div class="card" data-card style="background-image: url('images/1.jpg')">1.检测开发板是否与主机互通</div>
+	    <div class="card" style="background-image: url('images/2.jpg')">2.跑通开发板上的代码</div>
+	    <div class="card" style="background-image: url('images/3.jpg')">3.进行前端网页的设计与编写</div>
+	    <div class="card" style="background-image: url('images/4.jpg')">4.将自己所写网页与源代码合并</div>
+	    <div class="card" style="background-image: url('images/5.jpg')">5.代码挂到开发板上ID卡上并访问</div>
+	    <div class="card" style="background-image: url('images/6.jpg')">6.文档的撰写</div>
+	    <!-- https://source.unsplash.com/random/6 -->
+	  </div>
+	  <div class="buttons">
+	    <button data-remove>–</button>
+	    <button data-add>+</button>
+	  </div>
+	</div>
+</body>
+
+<script>
+	// This JS is not needed for the layout to work.
+// All it does it add/remove images.
+   
+	const add = document.querySelector('[data-add]');
+	const remove = document.querySelector('[data-remove]');
+	const card = document.querySelector('[data-card]');
+	const container = document.querySelector('[data-container]');
+	let number = 7;
+	add.addEventListener('click', () => {
+	  /* var arr[10] = {"1.检测开发板是否与主机互通","2.跑通开发板上的代码","3.进行前端网页的设计与编写","4.将自己所写网页与源代码合并","5.代码挂到开发板上ID卡上并访问","5.代码挂到开发板上ID卡上并访问","6.文档的撰写","7","8","9","10"}*/
+	  const addCard = card.cloneNode(true);
+	  // 'https://source.unsplash.com/random/${Math.floor(Math.random() * 100)}'
+	  const image = `url('images/${Math.floor(Math.random() * 10)}.jpg')`;
+	  addCard.style.backgroundImage = image;
+	  addCard.innerHTML = number;
+	  container.appendChild(addCard);
+	  number++;
+	});
+
+	remove.addEventListener('click', () => {
+	  if (container.childElementCount > 0) {
+	    container.removeChild(container.lastElementChild);
+	  }
+	  
+	  if (number > 1) {
+	    number--;
+	  }
+	});
+	</script>
+</html>

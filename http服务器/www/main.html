@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/main.css"/>
+		<title>首页</title>
+		<!--[if IE 6]>
+		<style type="text/css">body {behavior:url("style/csshover3.htc");}
+</style>
+		<![endif]-->
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="js/cookie.js"></script>  
+		<script type="text/javascript" language="javascript">
+		
+			/* transfer user info from login cookie. */		
+			CookieUtil.set("username", CookieUtil.get("username"));
+			CookieUtil.set("passwd", CookieUtil.get("passwd"));
+			
+/////////////////////////////////////////////////////////////////////////////////////
+					
+			$(function()
+			{
+				var temp = $("#dataTemp");
+				var hui = $("#dataHui");
+				var speed = $("#dataSpeed");
+				var direction = $("#dataDirection");
+				var detect = false;
+
+				/* initialize the realtime_detect status.*/
+				$("#realtime_detect").attr("checked",false);
+				/* initialize the monitor status.*/
+				temp.text('加载');
+				hui.text('加载');
+				speed.text('加载');
+				direction.text('加载');	
+				/* checkbox event for realtime detect  */
+				$("#realtime_detect").change(function() 
+				{
+					if($("#realtime_detect").attr("checked"))
+					{
+						detect = true;
+					}
+					else
+					{
+						detect = false;	
+					}
+				})
+				/* realtime detect function */
+				function load_fn()
+				{
+					if(detect == true)
+					{
+						$.getJSON("./cgi-bin/cgi_control",
+							{
+								"sandtable_id":"001",
+								"sandtable_node_id":"1",
+								"operate_code":"get",
+								"operate_data":"null"
+							},
+							function(a)
+							{
+								temp.text(a.resultdata.temperature);
+								hui.text(a.resultdata.humidity)
+							});  
+						$.getJSON("./cgi-bin/cgi_control",
+							{
+								"sandtable_id":"001",
+								"sandtable_node_id":"2",
+								"operate_code":"get",
+								"operate_data":"null"
+							},
+							function(a)
+							{
+								speed.text(a.resultdata.windspeed)
+							});
+						$.getJSON("./cgi-bin/cgi_control",
+							{
+								"sandtable_id":"001",
+								"sandtable_node_id":"3",
+								"operate_code":"get",
+								"operate_data":"null"
+							},
+							function(a)
+							{
+								direction.text(a.resultdata.winddirection)
+							});
+					}
+				}
+				load_fn();
+				setInterval(load_fn, 200); 
+			});	
+		</script>
+	</head>
+	<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+	<script type = "text/javascript" src = "js/load.js"></script>
+	<script type = "text/javascript" src = "js/cookie.js"></script>	
+	<script language = "javascript">
+/*		$(function(){
+			setInterval(function(){ 
+				var date = new Date();
+				$(".time").text(date.getFullYear()+ "年" + (date.getMonth()+1) +"月"+ date.getDate()+"日 星期"+"日一二三四五六".charAt(date.getDay())+" "+date.getHours()+":"+date.getMinutes()+":"+date.getUTCSeconds());
+				//alert(date);
+				},1000);       //每1000毫秒(即1秒) 执行一次本段代码 
+		});	*/							
+	</script>
+
+	<body style="color: #FFFFFF">
+		<div class="body-bg">
+			<div class = "main_body">
+				<div class="center">
+				  <div class="title clearfix">
+						<h3>
+							<span class="logo-s">
+								<img src="images/logo_ultra.png"/>
+							</span>
+							<span class="time" id = "time" style="left: 282px; top: 12px; width: 320px">
+                            </span>
+							<span class="weather" style="left: 100px; top: 15px">
+								<iframe width="370" scrolling="no" height="70" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=2&icon=1&num=2">
+                                </iframe>
+                    		</span>
+						</h3>
+                      <div class="logo_software"><img alt="" src="images/logo_software.png" width="263" height="50"/>
+                      </div>                        
+				    	<div class="index-left" style="width: 650px; height: 382px; left: 50px; top: 100px;">
+                        	<label style="position: absolute; left: 158px; top: 12px; font-size: 32px; color: #FF9;">智慧校园仿真应用沙盘模型</label>
+					    	<img src="images/sand_server_model.png" scrolling="no" name="I1" align="center" border="0" frameborder="0" style="float: center; width: 521px; height: 335px; position: absolute; left: 89px; top: 56px;" id="I1" >
+                        </div>
+					<div class="index-right">
+							<ul>
+								<li>
+									<!-- <div class="img"><img src="images/ico-1.png" width="89" height="76" align="bottom" /></div> -->
+									<div id = "dataTemp" class = "dataShow"></div>
+									<div class="name"><a href="#">温度</a></div>
+								</li>
+								<li>
+									<!-- <div class="img"><img src="images/ico-2.png" width="86" height="76" align="bottom" /></div> -->
+									<div id = "dataHui" class = "dataShow"> </div>
+									<div class="name"><a href="#">湿度</a></div>
+								</li>
+								<li>			
+									<!-- <div class="img"><img src="images/ico-3.png" width="88" height="80" align="bottom" /></div> -->
+									<div id = "dataSpeed" class = "dataShow"> </div>
+									<div class="name"><a href="#">风速</a></div>
+								</li>
+								<li>									
+									<!-- <div class="img"><img src="images/ico-4.png" width="94" height="80" align="bottom" /></div> -->
+									<div id = "dataDirection" class = "dataShow"> </div>
+									<div class="name"><a href="#">风向</a></div>
+								</li>
+								
+						  </ul>
+					</div>
+					<form id="form1" name="form1" method="post" action="" style="position: absolute; left: 1109px; top: 501px; width: 120px; font-size: 18px;">
+						  <input name="real_detect" type="checkbox" id="realtime_detect"/>
+						  实时监测
+						  <label for="realtime_detect"></label>
+				    </form>
+					</div>
+			  </div>
+			  <div class="index-nav">
+					<div class="center">
+						<div class="nav-c">
+							<a class="i-nav-left"></a>
+							<div id="ISL_Cont" class="activity">
+								<div class="pic-g">
+									<ul id="List1" style="left: 0px; top: 0px">
+			
+										<li style="width: 180px">
+										<a href="device_operation.html" class="change_color">设备操作</a></li>
+										
+										<li style="width: 180px">
+										<a href="realtime_monitor.html" class="change_color">实时监控</a></li>
+																				
+										<li style="width: 180px">
+										<a href="barcode_operation.html" class="change_color">条码操作</a></li>
+										
+										<li style="width: 180px">
+										<a href="help.html" class="change_color">系统帮助</a></li>
+										
+										<li style="width: 110px">
+										<a href="setup.html" class="change_color">设置</a></li>
+										
+										<li style="width: 110px">
+										<a href="index.html" class="change_color">退出</a></li>
+									</ul>
+								</div>
+							</div>
+							<a class="i-nav-right"></a>
+						</div>
+						<div class="menu-hotel" id = "menu-hotel" style="display:none;">
+							<a href="#" class="menu-left"></a>
+							<div class = "submenu">
+								<ul id = "submenu_ul" class = "submenu_ul" >
+									<li><a href="#">用户名</a></li>
+									<li><a href="#">密码</a></li>
+								</ul>
+							</div>
+							<a href="#" class="menu-right"></a>
+						</div>
+					</div>
+				</div>
+                <div class="coll-bottom">
+                    <span></span>
+                    <font>
+                        <marquee class = "text_marquee" direction = "left" behavior = "scroll" scrollamount = 6 scrolldelay = 50 onmouseover = this.stop() onmouseout = this.start()>
+                            智翔集团期待为您提供最好的服务！
+                        </marquee>
+                    </font>
+                </div>
+			</div>
+		</div>
+</body>
+</html>

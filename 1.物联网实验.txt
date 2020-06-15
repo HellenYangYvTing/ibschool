@@ -1,0 +1,146 @@
+第一天
+安装虚拟机
+学习并训练常用的命令符号
+
+第二天
+上午
+1学习nfs及其他三大服务器配置
+2设置共享文件夹
+
+下午
+1.配置nfs服务器（资料#4）
+2.连接主机与器材
+3.gcc -v（检查gcc版本）
+晚上
+/宿主机和目标机互ping，在SecureCRT上看可不可以查看虚拟机的共享文件
+1、将所有的线连接之后
+2、把自己电脑的无线网卡禁用
+3、把虚拟机选择桥接模式
+4、打开SecureCRT 选择seriel，选择com3接口，选择波特率115200，取消勾选Rt。。。
+5、在SecureCRT里输入ifconfig，看到设备的ip地址是192.168.1.102
+6、在虚拟机输入ifconfig,看到电脑的主机地址是192.168.1.102
+7、在虚拟机输入ping 192.168.1.102
+8、看到传输过程则ping成功
+9、按shift+z退出ping命令
+10、在SecureCRT 输入 mount -t nfs -o nolock 192.168.1.103:/home/fang/hello /mnt
+11、在SecureCRT 输入 cd /mnt，再输入ls
+12、若出现共享文件夹则查看成功
+
+第三天
+************************************************************************************上午
+//针对虚拟机
+vim hello.c //创建hello.c
+i  //进入
+编写hello.c(输出hello word）
+：wq //退出
+gcc hello.c -o hello
+ls
+cat hello
+./hello
+gcc -E hello.c hello.i  //转汇编
+cat hello.i
+gcc -S hello.i -o hello.s  //机器装汇编
+
+
+//针对开发板的
+gedit hello.s
+ls
+source /etc/profile
+16:48 2019/12/25jsawz3xed //预处理文件
+
+
+//gdb 调试
+gedit tst.c
+将代码粘贴保存后
+1编译生成可执行文件:
+	#gcc –g tst.c –o tst
+2启动GDB
+	#gdb tst
+3在main函数处设置断点
+	(gbd)break main
+4运行程序
+	(gdb)run
+5单步运行
+	(gbd)next
+6继续运行
+	 (gbd)continue
+
+使用p查看
+
+
+//makefile
+1 gedit makefile
+(//老师
+hello:hello.o
+	gcc hello.o -o hello
+hello.o:hello.s
+	gcc -c hello.s -o hello.o
+hello.s:hello.l
+	gcc -S hello.l -o hello.s
+hello.l:hello.c
+	gcc -E hello.c -o hello.l
+clean:
+	rm -rf *.o *.l *.s 
+)
+//ppt
+hello:main.o func1.o func2.o//指定hello 为目标：依赖
+	gcc main.o func1.o func2.o -o hello//前Tab。输出hello
+main.o:main.c//编出main.o：依赖
+	gcc -c main.c//具体命令
+func1.o:func1.c
+	gcc -c func1.c
+func2.o:func2.c
+	gcc -c func2.c
+.PHONY:clean//虚目标，清除
+clean:
+	rm -rf hello main.o func1.o func2.o//清除具体命令
+2 rm -rf makefile~
+3 make
+
+************************************************************************
+下午
+MV:(192.168.1.102)
+开发板：（192.168.1.100）
+
+//网络
+Ser :
+ls
+
+VM:
+1 lab30复制到test
+2 修改build.sh
+	path 第一个内容改：crosstoll
+
+3.MV
+将包含TCP的文件夹加入共享文件夹
+cat /etc/exports
+service nfs-kernel-server restart
+ (mv /home/hellen/hello/test/lab30/ ./)
+
+4.开发板
+(mount -t nfs -o nolock 192.168.1.102:/home/student/yang /mnt)
+mount -t nfs 192.168.18.130:/home/student/yang /mnt -o nolock
+cd /mnt
+ls
+cd TCP/
+./server
+
+
+
+
+5 MV
+(cp ../../../hellen/Desktop/server.c)
+./client 192.168.1.100
+Hello!
+开发板出现hello。开发板发送hi
+nc -n 192.168.1.100 8888
+MV就会收到hi	
+/**************************************
+source /etc/profile
+vim /etc/profile (export PATH=$PATH:/crosstool/Sourcery_CodeBench_Lite_for_Xilinx_GNU_Linux/bin)
+arm-linux-gcc server.c -o servertcp
+nc -n 192.168.1.100 8888
+Hello(开发板收到）
+6 开发板
+hi(MV收到）
+*************************/

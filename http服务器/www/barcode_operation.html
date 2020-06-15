@@ -1,0 +1,552 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>条码操作</title>        
+		<link rel="stylesheet" type="text/css" href="style/module.css"/>
+                 
+        <style type="text/css">
+		
+			.body_title{
+				margin: 0px;
+				padding: 0px;
+				font-family: "微软雅黑", Arial, Lucida, Verdana, Helvetica, sans-serif;
+				font-size: 32px;
+				color: #666666;
+			}
+			.qrcode {
+				float: left;
+				width: 255px;
+				height: 200px;
+				margin: 15px auto auto 16px;
+			}
+			.qrcode_title{
+	margin: 5px 10px 5px 10px;
+	font-size: 24px;
+	font-weight: normal;
+			}
+			.qrcode_div{
+	width: 150px;
+	height: 150px;
+	margin: 10px 10px 10px 10px;
+	border: 5px solid #FFF;
+	background-color: #FFF;
+			}
+			.qrcode_button{
+				background: url("images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+				border: 0 none;
+				color: #FFFFFF;
+				height: 47px;
+				width: 90px;
+				text-align: center;
+				position: absolute;
+				vertical-align: bottom;
+				left: 605px;
+			}
+			.clear_button{
+				background: url("images/live-listbgs-device.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+				border: 0 none;
+				color: #FFFFFF;
+				height: 47px;
+				width: 90px;
+				text-align: center;
+				vertical-align: top;
+				left: 925px;
+				top: 168px;
+				margin-bottom: 10px;
+			}			
+			.qrcode_buttons_div{
+				position: absolute;
+				left: 919px;
+				top: 165px;
+				width: 93px;
+				height: 150px;
+			}
+			.qrcode_status_div{
+				margin-top: 15px;
+			}
+			.qrcode_status_unit{
+				
+			}
+			.qrcode_status_div label{
+				font-size:14px;
+				vertical-align:top;
+			}
+			.qrcode_status_div textarea{
+				position:absolute;
+				vertical-align:top;
+			}
+
+			body{
+			/*          color:#7F7F7F;*/
+				font-size: 12px;
+			}		   
+			#config{
+				overflow: auto;
+				margin-bottom: 10px;
+				width: 640px;
+				height: 165px;
+			}
+			.config{
+				float: left;
+				width: 200px;
+				height: 160px;
+				border: 1px solid #000;
+				margin-left: 10px;
+			}
+			.config .title{
+				font-size: 14px;
+				font-weight: bold;
+				text-align: center;
+				width: 200px;
+			}
+			
+			.barcode_param{
+	width: 120px;
+	height: 14px;
+	font-size: 14px;
+	overflow: hidden;
+	font-weight: bold;
+			}
+			
+			.config .barcode2D,
+			#miscCanvas{
+				display: none;
+			}
+			#submit{
+				clear: both;
+				width: 600px;
+			}
+			#barcodeTarget,
+			#canvasTarget{
+				margin-left: 10px;
+			}
+			.barcode_buttons_div{
+	position: absolute;
+	left: 1110px;
+	top: 372px;
+	width: 110px;
+	height: 163px;
+			}	  
+	         
+        </style>
+		<style type="text/css" media="all">
+		 #header, .top_title, #jqprint, #footer, #cssprint{display:none} 
+
+        </style>  
+        
+       
+        <script type="text/javascript" src="js/jquery-1.8.3.js"></script>       
+        <script type="text/javascript" src="js/qrcode.js"></script>   
+        <script type="text/javascript" src="js/jquery.qrcode.js"></script>  
+		<script type="text/javascript" src="js/jquery-barcode-2.0.2.min.js"></script>
+		<script type="text/javascript" src="js/cookie.js"></script>
+        
+		<script defer> 
+			/* define printing configuration. */
+			function SetPrintSettings()
+			{ 
+				// -- advanced features 
+				factory.printing.SetMarginMeasure(2) // measure margins in inches 
+				factory.SetPageRange(false, 1, 3) // need pages from 1 to 3 
+				factory.printing.copies = 2 
+				factory.printing.collate = true 
+				factory.printing.paperSize = "A4" 
+				factory.printing.paperSource = "Manual feed" 				
+				// -- basic features 
+				factory.printing.header = "This is MeadCo" 
+				factory.printing.footer = "Advanced Printing by ScriptX" 
+				factory.printing.portrait = false 
+				factory.printing.leftMargin = 1.0 
+				factory.printing.topMargin = 1.0 
+				factory.printing.rightMargin = 1.0 
+				factory.printing.bottomMargin = 1.0 
+			} 
+		</script>
+		<script type="text/javascript" language="javascript">
+/////////////////////////////////////////////////////////////////////////////////////		
+			function checkLogin()
+			{
+				if(CookieUtil.get("username") == "null" && CookieUtil.get("passwd") == "null")
+					return false;
+				else
+					return true;
+			}
+			$(function()
+			{
+				jQuery.ajaxSetup({cache:false});
+				if(!(checkLogin()))
+				{
+					alert("请先登录！");
+					window.location.href = "index.html";
+				}
+			});	
+/////////////////////////////////////////////////////////////////////////////////////
+			$(function ()
+			{
+				$("#qrcode_input").keyup(function()
+				{
+					var len = $(this).val().length;
+					$("#text_size").text(len);		//实时显示已输入字符数
+				});
+				
+				$("#qrcode_btn").bind("click", function ()
+				{ 
+					var text = $("#qrcode_input").val(); 
+					var len = $("#qrcode_input").val().length;
+					if (len <= 250)
+					{
+						$("#qrcode_canvas").empty();	//清空绘图区
+						$("#qrcode_canvas").qrcode(utf16to8(text)); //任意内容 
+					}
+					else
+					{
+						alert("您输入的字符已超过最大限制！");	
+					}
+				})
+				
+				$("#clear_input").bind("click", function ()
+				{
+					$("#qrcode_input").val("");		//清除输入文本区
+				})	
+							
+				$("#clear_output").bind("click", function ()
+				{
+					$("#qrcode_canvas").empty();	//清空绘图区（输出二维码）
+				})
+				
+//				$("#qrcode_save_img").bind("click", function ()
+//				{
+//					alert("该功能待开发！");
+//				})
+
+				$("#barcode_clear").bind("click", function ()
+				{
+					$("#barcodeValue").val("");		//清除输入文本区
+					clearCanvas();
+					$("#barcodeTarget").hide();		//清空绘图区（输出条形码）		
+				})
+				
+//				$("#barcode_save_img").bind("click", function ()
+//				{
+//					alert("该功能待开发！");
+//				})
+				
+				$("#print_page").click(function()
+				{
+					window.print();					//横向打印页面
+				});				
+					
+			})		
+		
+			function utf16to8(str)
+			{ //中文转码 
+				var out, i, len, c; 
+				out = ""; 
+				len = str.length; 
+				for (i = 0; i < len; i++)
+				{ 
+					c = str.charCodeAt(i); 
+					if ((c >= 0x0001) && (c <= 0x007F))
+					{ 
+						out += str.charAt(i); 
+					}
+					else if (c > 0x07FF)
+					{ 
+						out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F)); 
+						out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F)); 
+						out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F)); 
+					}
+					else
+					{ 
+						out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F)); 
+						out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F)); 
+					} 
+				} 
+				return out; 
+			}
+/////////////////////////////////////////////////////////////////////////////////////
+			function generateBarcode()
+			{
+				var value = $("#barcodeValue").val();
+				var btype = $("input[name=btype]:checked").val();
+				var renderer = $("input[name=renderer]:checked").val();
+			  
+				var quietZone = false;
+				if ($("#quietzone").is(':checked') || $("#quietzone").attr('checked'))
+				{
+					quietZone = true;
+				}
+			  
+			  	var settings = {
+					output:renderer,
+					bgColor: $("#bgColor").val(),
+					color: $("#color").val(),
+					barWidth: $("#barWidth").val(),
+					barHeight: $("#barHeight").val(),
+					moduleSize: $("#moduleSize").val(),
+					posX: $("#posX").val(),
+					posY: $("#posY").val(),
+					addQuietZone: $("#quietZoneSize").val()
+				};
+			  	if ($("#rectangular").is(':checked') || $("#rectangular").attr('checked'))
+				{
+					value = {code:value, rect: true};
+			  	}
+			  	if (renderer == 'canvas')
+				{
+					clearCanvas();
+					$("#barcodeTarget").hide();
+					$("#canvasTarget").show().barcode(value, btype, settings);
+					//added code 
+					var type = 'png';  			
+			    	var imgData = document.getElementById("canvasTarget").toDataURL(type);  
+                	document.getElementById("download_barcode").href=imgData;
+			    	//-------------------------------------------------------
+			  	}
+				else
+				{
+					$("#canvasTarget").hide();
+					$("#barcodeTarget").html("").show().barcode(value, btype, settings);
+			   		//added code here 
+					var divContent = document.getElementById("barcodeTarget").innerHTML;  
+					var data = "data:image/svg+xml," +  "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>" +  "<foreignObject width='100%' height='100%'>" +  "<div xmlns='http://www.w3.org/1999/xhtml' style='font-size:16px;font-family:Helvetica'>" +  divContent +  "</div>" +  "</foreignObject>" +  "</svg>";  
+   					var img = new Image();  
+   					img.src = data;  
+
+					//var canvas = document.createElement('canvas');  //准备空画布   
+					var canvas = document.getElementById("canvasTarget");
+					canvas.width = img.width;  
+					canvas.height = img.height;  
+					 
+					var context = canvas.getContext('2d');  //取得画布的2d绘图上下文 
+					context.drawImage(img, 10, 10); 
+
+					var type = 'png';  
+					var imgData = canvas.toDataURL(type);  
+					document.getElementById("download_barcode").href=imgData;
+				}
+			}
+				
+			function showConfig1D()
+			{
+			  $('.config .barcode1D').show();
+			  $('.config .barcode2D').hide();
+			}
+			
+			function showConfig2D()
+			{
+			  $('.config .barcode1D').hide();
+			  $('.config .barcode2D').show();
+			}
+			
+			function clearCanvas()
+			{
+			  var canvas = $('#canvasTarget').get(0);
+			  var ctx = canvas.getContext('2d');
+			  ctx.lineWidth = 1;
+			  ctx.lineCap = 'butt';
+			  ctx.fillStyle = '#FFFFFF';
+			  ctx.strokeStyle  = '#000000';
+			  ctx.clearRect (0, 0, canvas.width, canvas.height);
+			  ctx.strokeRect (0, 0, canvas.width, canvas.height);
+			}
+			
+			$(function()
+			{
+			  $('input[name=btype]').click(function()
+			  {
+				if ($(this).attr('id') == 'datamatrix') showConfig2D(); else showConfig1D();
+			  });
+			  $('input[name=renderer]').click(function()
+			  {
+				if ($(this).attr('id') == 'canvas') $('#miscCanvas').show(); else $('#miscCanvas').hide();
+			  });
+			  generateBarcode();
+			});
+/////////////////////////////////////////////////////////////////////////////////////      
+        </script>
+	</head>
+	<body>
+		<div class="body-bg">
+			<div class="coll-nav">
+				<div class="center">
+					<div class="nav-eat">
+						<div class = "main_menu">
+							<span class = "body_title">条码操作</span>
+						</div>
+                        <div class="logo_software"><img alt="" src="images/logo_software.png" width="263" height="50"/>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<div class="coll-body">
+				<div class="coll-left">
+					<img src="images/left_image.png" width="207" height="510" />
+				</div>
+			  <div class="barcode-right">
+					<div class = "helpContent">
+<!--插入二维码页面-->
+                        <table width="950" height="510" border="1" cellpadding="1" cellspacing="1">
+                          <tr>
+                            <th width="133" height="245" scope="col">
+                            <label class="qrcode_title">二维码</label>
+                            </th>
+                        	<td width="800" scope="col">
+                        		<div class="qrcode" style="border-right: 1px solid silver; font-size: 16px; width: 260px; height: 220px;">
+                                    <label class="qrcode_title">输入任意文字</label>
+                                    <textarea class="qrcode_result" id="qrcode_input" style="width: 230px; height: 100px; margin: 10px 0px 0px 0px; font-size: 16px; font-weight: bold;"></textarea>
+                                    <div class="input_size"> 已输入字数：<span id="text_size">0</span>/250</div>
+                                    <button class="qrcode_button" id="qrcode_btn">
+                                    <div align="center">生成二维码</div>
+                                    </button>
+                                </div>
+                              	<div class="qrcode"style="border-right: 1px solid silver; font-size: 24px; width: 300px; height: 220px;">
+                           		  <label class="qrcode_title">输出二维码</label>
+                                	<div class="qrcode_div", id="qrcode_canvas">
+
+                        			</div>
+                                    <div class="qrcode_buttons_div">
+                                        <button class="clear_button" id="clear_input">
+                                        	<div align="center">清除输入</div>
+                                        </button>
+                                        <button class="clear_button" id="clear_output">
+                                       		<div align="center">清除二维码</div>
+                                        </button>
+                                      	<!--<button class="clear_button" id="qrcode_save_img">
+                                        	<div align="center">保存二维码</div>
+                                    	<!--<a href="#" onclick="saveImage.document.execCommand('saveAs');">保存图片</a> -->
+                                        <button class="clear_button">
+											<a class="a1" id="download_qrcode" href="empty" download="二维码">保存二维码</a>
+                                    	</button>
+                                    </div>
+                                    
+                              	</div>
+                                <img src="images/Ultrawise_small.png" 
+                                style="position: absolute; width: 180px; height: 150px; top: 165px; left: 1048px;"/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th height="252" scope="col">
+                            <label class="qrcode_title">条形码</label>
+                            </th>
+                            <td width="800">
+                            
+                            <div id="generator">
+                              <label class="qrcode_title">请输入数字或字母编码：</label>
+                                  <textarea class="barcode_input" type="text" id="barcodeValue" value="12345670" 
+                                  style="width: 350px; height: 20px; font-size: 14px; font-weight: bold;"></textarea>
+                                  
+                                  <div id="config">
+                                    <div class="config">
+                                      <div class="title">编码类型</div>
+                                      <input type="radio" name="btype" id="ean8" value="ean8" checked="checked">
+                                      <label for="ean8">EAN 8</label><br/>
+                                      <input type="radio" name="btype" id="ean13" value="ean13">
+                                      <label for="ean13">EAN 13</label><br/>
+                                      <input type="radio" name="btype" id="std25" value="std25">
+                                      <label for="std25">standard 2 of 5 (industrial)</label><br/>
+                                      <input type="radio" name="btype" id="int25" value="int25">
+                                      <label for="int25">interleaved 2 of 5</label><br/>
+                                      <input type="radio" name="btype" id="code11" value="code11">
+                                      <label for="code11">code 11</label><br/>
+                                      <input type="radio" name="btype" id="code39" value="code39">
+                                      <label for="code39">code 39</label><br/>
+                                      <input type="radio" name="btype" id="code93" value="code93">
+                                      <label for="code93">code 93</label><br/>
+                                    </div>
+                                    
+                                    <div class="config">
+                                      <div class="title">选项</div>
+                                        背景颜色:
+                                        <textarea class="barcode_param" type="text" id="bgColor" size="7">#FFFFFF</textarea><br/>
+                                       <!--  <input type="text" id="bgColor" value="#FFFFFF" size="7"><br/>  -->
+                                        条码颜色:
+                                        <textarea class="barcode_param" type="text" id="color" size="7">#000000</textarea><br/>
+                                      <div class="barcode1D">
+                                        条码宽度:
+                                        <textarea class="barcode_param" type="text" id="barWidth" size="3">1</textarea><br/>
+                                        条码高度: 
+                                        <textarea class="barcode_param" type="text" id="barHeight" size="3">32</textarea><br/>
+                                      </div>
+                                      <div class="barcode2D">
+                                        Module Size: <input type="text" id="moduleSize" value="5" size="3"><br/>
+                                        Quiet Zone Modules: <input type="text" id="quietZoneSize" value="1" size="3"><br/>
+                                        Form: <input type="checkbox" name="rectangular" id="rectangular">
+                                        <label for="rectangular">Rectangular</label><br/>
+                                      </div>
+                                      <div id="miscCanvas">
+                                        x : <textarea class="barcode_param" type="text" id="posX" size="3">10</textarea><br/>
+                                        y : <textarea class="barcode_param" type="text" id="posY" size="3">20</textarea><br/>
+                                      </div>
+                                    </div>
+                                        
+                                    <div class="config">
+                                      <div class="title">格式</div>
+                                      <input type="radio" id="css" name="renderer" value="css" checked="checked">
+                                      <label for="css">CSS</label><br/>
+                                      <input type="radio" id="bmp" name="renderer" value="bmp">
+                                      <label for="bmp">BMP (不支持IE)</label><br/>
+                                      <input type="radio" id="svg" name="renderer" value="svg">
+                                      <label for="svg">SVG (不支持IE)</label><br/>
+                                      <input type="radio" id="canvas" name="renderer" value="canvas">
+                                      <label for="canvas">Canvas (不支持IE)</label><br/>
+                                    </div>                                   
+
+                                  </div>
+                                  
+                                  <div class="barcode_buttons_div">
+                                      <button class="clear_button" id="barcode_generate" onClick="generateBarcode();">
+                                      	<div align="center">生成条形码</div>
+                                      </button>
+                                      <button class="clear_button" id="barcode_clear">
+                                      	<div align="center">清除条形码</div>
+                                      </button>
+                                      <!--<button class="clear_button" id="barcode_save_img">
+                                      	<div align="center">保存条形码</div>
+                                      </button> -->
+                                      <button class="clear_button">
+									  	<a class="a1" id="download_barcode" href="empty" download="条形码">保存条形码</a>
+                                      </button>
+                                      <button class="clear_button" id="print_page">
+                                      	<div align="center">打印页面</div>
+                                      </button>
+                                  </div>                                    
+   
+                              </div>
+                                
+                                <div id="barcodeTarget" class="barcodeTarget"></div>
+                                <canvas id="canvasTarget" width="150" height="40"></canvas>                             
+
+                            </td>
+                          </tr>
+                        </table>
+<!--结束二维码页面-->
+				  </div>
+					<div class="coll-btn">						
+						<div class = "back">
+							<ul class = "home_ul" id = "live_home_ul">
+								<li class = "live_home_pic">
+									<a href = "main.html">
+										<span class = "home_span"></span>
+										<span class = "backHome">返回主页</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>  
+				</div>
+			</div>	
+		</div>
+	</div>
+			<div class="coll-bottom">
+				<span></span>
+				<font>
+					<marquee class = "text_marquee" direction = "left" behavior = "scroll" scrollamount = 6 scrolldelay = 50 onmouseover = this.stop() onmouseout = this.start()>
+						智翔集团期待为您提供最好的服务！
+					</marquee>
+				</font>
+			</div>
+		</div>
+	</body>
+</html>

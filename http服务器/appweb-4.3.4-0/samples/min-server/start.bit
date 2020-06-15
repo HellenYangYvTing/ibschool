@@ -1,0 +1,26 @@
+/*
+    start.bit - Bit build file
+ */
+
+Bit.load({
+    settings: {
+        requires: ['appweb'],
+        bit: '0.8.6',
+    },
+    targets: {
+        server: {
+            type:    'exe',
+            sources: '*.c',
+            depends: ['appweb'],
+        },
+        run: {
+            run: './server',
+            depends: 'server',
+        },
+        cleanup: {
+            type: 'clean',
+            action: "rm('error.log*')",
+        }
+    },
+    packDefaults: { appweb: true },
+})

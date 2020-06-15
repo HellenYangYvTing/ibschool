@@ -1,0 +1,340 @@
+.w {
+    width: 1190px; /* 京东的版心为1190 */
+    margin: 0 auto;
+ }
+ 
+header {
+     height: 80px;
+     background-color: #020000;
+ }
+body {
+    background-color: #f0f3ef;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.col{
+    color: #f10215;
+}
+a:hover{
+    color: #f10215;
+}
+@font-face {
+    font-family: 'icomoon';
+    src:  url('../fonts/icomoon.eot?pobg2j');
+    src:  url('../fonts/icomoon.eot?pobg2j#iefix') format('embedded-opentype'),
+      url('../fonts/icomoon.ttf?pobg2j') format('truetype'),
+      url('../fonts/icomoon.woff?pobg2j') format('woff'),
+      url('../fonts/icomoon.svg?pobg2j#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+h1, input,button,p ,h5,dl,dd,dt,h6{
+    margin: 0px;
+    padding: 0px;
+}
+input ,button,p{
+    border: 0px;
+    outline: none; /* 取消轮廓边框 */
+}
+a{
+    text-decoration: none;  /* 取消下划线 */
+    font-size: 12px;
+    color: #999;
+}
+
+ /* 导航栏 */
+ .daohang {
+     height: 30px;
+     /* 行高等于高就可以垂直居中 */
+     line-height: 30px;
+     background-color: #e3e4e5;
+     border-bottom: 1px solid #ddd;
+     color: #999;
+     font-size: 12px;
+ }
+ .city{
+    margin-left:  200px;
+    
+ }
+ ul{
+    list-style: none;
+    margin: 0;
+    padding: 0px;
+    
+
+ }
+
+ .daohang li{
+  float: left;
+   
+ }
+
+ .space{  /* 竖线 */
+     width: 1px;
+     height: 10px;
+     background-color: #ccc;
+     margin: 10px 12px 0px;
+ }
+ .daohang i{
+     font-family: 'icomoon';
+     font-weight: normal;
+     font-style: normal;
+ }
+ .moble{
+    position: relative;
+
+ }
+ .moble img{
+    position: absolute;
+    left: -6px;
+    padding: 1px;
+ }
+/* 导航栏结束 */
+
+/* 中间部分开始 */
+.middle{
+    height: 140px;
+    position: relative;
+}
+.logle{
+    position: absolute;
+    left: 0px;
+    top: -30px;
+    box-shadow: 0px -10px 10px rgba(0,0,0,.3);
+}
+.logle a{
+    display: block;
+    width: 190px;
+    height: 170px;
+    background:#fff url( ../images/logo.png ) no-repeat;   
+}
+/* 搜索框 */
+.form{
+    width: 550px;
+    height: 35px;
+    position: absolute;
+    top: 25px;
+    left: 320px;
+}
+.form input{
+    width: 495px;
+    height: 35px;
+    float: left;
+    font-size: 13px;
+    
+    padding-left: 5px;
+}
+.form button{
+    width: 48px;
+    height: 35px;
+    float: left;
+    background-color:#f10215; 
+}
+
+/* 购物车 */
+.shopcar{
+    width: 188px;
+    height: 33px;
+    line-height: 30px;
+    border: 1px solid #ccc ;
+    position: absolute;
+    top: 25px;
+    right: 95px;
+    color: #f10215;
+    text-align: center;
+    
+}
+.shopcar i{
+    font-family: 'icomoon';
+    font-weight: normal;
+    font-style: normal;
+    margin-right: 3px;
+}
+.shopcar span{
+    height: 15px;
+    width: 15px;
+    background-color: #f10215;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    font-size: 15px;
+    color: #fff;
+    line-height: 15px;
+}
+/* 关键字 */
+.hotwords{
+    height: 30px;
+    /* 行高等于高就可以垂直居中 */
+    line-height: 30px;
+    color: #999;
+    font-size: 12px;
+    position: absolute;
+    top: 68px;
+    left: 320px;
+}
+/* 小导航部分  */
+.navitems{
+    width: 1000px;
+    height: 40px;
+    position: absolute;
+    bottom: 0%;  /* 绝对定位的底部 */
+    left: 200px;
+    line-height: 40px;
+}
+.navitems li{
+    float: left;
+    margin-left: 25px;
+}
+.navitems a{
+    font-size: 14px;
+    color: #333333;
+}
+.navitems a:hover{
+    color: #f10215;
+}
+.navitems .space{
+    margin-top: 15px;
+    margin-right: -15px;
+    margin-left: 15px;
+}
+/* 中间部分结束 */
+/* 页面底部 */
+footer{
+    height: 500px;
+     
+}
+.service{
+    border-bottom: 1px solid #DEDEDE;
+    padding:  30px 0;
+    overflow: hidden;
+   
+}
+.service li {
+    width: 297px;
+    height: 43px;
+    position: relative;
+    line-height: 43px;
+    float: left;
+}
+.service li h5{
+    position: absolute;
+    top: 0px;
+    left: 35px;
+    width: 43px;
+    height: 48px;
+    background:  url(../images/1.png) no-repeat;
+}
+.service li:nth-child(2) h5{
+    background:  url(../images/2.png) no-repeat;
+}
+.service li:nth-child(3) h5{
+    background:  url(../images/3.png) no-repeat;
+}
+.service li:nth-child(4) h5{
+    background:  url(../images/4.png) no-repeat;
+}
+.service li p{
+    font-weight: 700;
+    margin-left: 80px;
+    position: absolute;
+
+}
+/* 帮助模块 */
+.help{
+    height: 200px;
+    border-bottom: 1px solid #DEDEDE;
+    padding-top: 25px;
+    box-sizing: border-box; 
+}
+.help dl{
+    width: 192px;
+    float: left;
+    font-size: 13px;
+}
+.help dt{
+    color: #666;
+    height: 30px;
+   
+}
+.help dd{
+    height: 21px;
+}
+.coverge{
+    width: 200px;
+    height: 15px;;
+}
+.coverge h5{
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+}
+.coverge p{
+    color: #999;
+    margin-top: 15px;
+    font-size: 12px;
+    line-height: 18px;
+    width: 180px;
+}
+.coverge a{
+    display: block;
+    margin-top: 5px;
+    width: 180px;
+    text-align: right;
+}
+/* 版权 */
+.root{
+    padding-top: 20px;
+    text-align: center;
+    color: #666;
+}
+.space2{  /* 竖线 */
+    width: 1px;
+    height: 10px;
+    color: #999;
+    font-size: 10px;
+    margin: 10px 8px 0px;
+}
+.root  a{
+    color: #666;
+}
+.root2{
+    
+    text-align: center;
+    color: #666;
+}
+.foot{
+    padding-top: 20px;
+    text-align: center;
+    color: #666;
+    height: 100px;
+}
+.foot a {
+    display: inline-block;
+    color: #666;
+    width: 97px;
+    height: 35px;
+    margin: 20px 10px; 
+    text-align: center;
+    background: url(../images/f1.png) no-repeat;
+}
+.foot .sp{
+    width: 101px;
+}
+
+.foot a:nth-child(2){
+    background: url(../images/f2.png) no-repeat;
+}
+.foot a:nth-child(3){
+    background: url(../images/f3.png) no-repeat;
+} 
+.foot a:nth-child(4){
+    background: url(../images/f4.png) no-repeat;
+} 
+.foot a:nth-child(5){
+    background: url(../images/f5.png) no-repeat;
+} 
